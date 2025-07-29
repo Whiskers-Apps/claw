@@ -162,7 +162,7 @@ fun AppsScreen(
                                         ) {
 
                                             Box(modifier = Modifier.size(48.dp)) {
-                                                AppIcon(app = app, useThemed = state)
+                                                AppIcon(app = app)
                                             }
 
                                             Spacer(modifier = Modifier.width(16.dp))

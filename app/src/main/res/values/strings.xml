@@ -6,7 +6,8 @@
     <string name="SetupScreen_next">Next</string>
     <string name="SetupScreen_finish">Finish</string>
     <string name="SetupScreen_previous">Previous</string>
-    <string name="SearchEnginesSetupScreen_description">Select your preferred search engine. You can always change it later in the settings</string>
+    <string name="SearchEnginesSetupScreen_description">Select your preferred search engine</string>
+    <string name="SearchEnginesSetupScreen_title">Search Engines</string>
 
     <!-- General Strings -->
     <string name="Save">Save</string>

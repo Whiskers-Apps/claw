@@ -69,7 +69,7 @@ fun AddGroupDialog(
 
             items(
                 items = state.addGroupDialog.bookmarks,
-                key = { it.bookmark._id.toHexString() }
+                key = { it.bookmark.id }
             ) { item ->
                 Row(
                     modifier = Modifier
@@ -77,7 +77,7 @@ fun AddGroupDialog(
                         .clickable {
                             onAction(
                                 BookmarksScreenAction.ChangeAddGroupBookmarkSelection(
-                                    item.bookmark._id,
+                                    item.bookmark.id,
                                     !item.selected
                                 )
                             )
@@ -120,7 +120,7 @@ fun AddGroupDialog(
                         onCheckedChange = {
                             onAction(
                                 BookmarksScreenAction.ChangeAddGroupBookmarkSelection(
-                                    item.bookmark._id,
+                                    item.bookmark.id,
                                     it
                                 )
                             )

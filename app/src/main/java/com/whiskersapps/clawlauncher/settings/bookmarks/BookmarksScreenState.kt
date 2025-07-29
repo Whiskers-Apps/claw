@@ -1,13 +1,12 @@
 package com.whiskersapps.clawlauncher.settings.bookmarks
 
 import com.whiskersapps.clawlauncher.shared.model.Bookmark
-import com.whiskersapps.clawlauncher.shared.model.BookmarkGroup
-import org.mongodb.kbson.ObjectId
+import com.whiskersapps.clawlauncher.shared.model.Group
 
 data class BookmarksScreenState(
     val loading: Boolean = true,
     val bookmarks: List<Bookmark> = emptyList(),
-    val groups: List<BookmarkGroup> = emptyList(),
+    val groups: List<Group> = emptyList(),
     val showAddBookmarkDialog: Boolean = false,
     val showEditBookmarkDialog: Boolean = false,
     val showAddGroupDialog: Boolean = false,
@@ -23,7 +22,7 @@ data class BookmarksScreenState(
     )
 
     data class EditBookmarkDialog(
-        val bookmark: Bookmark = Bookmark(),
+        val bookmark: Bookmark = Bookmark(-1, "", ""),
         val name: String = "",
         val url: String = ""
     )
@@ -34,13 +33,13 @@ data class BookmarksScreenState(
     )
 
     data class EditGroupDialog(
-        val id: ObjectId = ObjectId(),
+        val id: Int = -1,
         val name: String = "",
         val bookmarks: List<GroupBookmark> = emptyList()
     )
 
     data class GroupBookmark(
         val selected: Boolean = false,
-        val bookmark: Bookmark = Bookmark()
+        val bookmark: Bookmark = Bookmark(-1, "", "")
     )
 }

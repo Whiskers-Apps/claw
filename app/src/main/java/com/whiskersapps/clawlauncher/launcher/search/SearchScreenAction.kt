@@ -2,7 +2,7 @@ package com.whiskersapps.clawlauncher.launcher.search
 
 import androidx.fragment.app.FragmentActivity
 import com.whiskersapps.clawlauncher.shared.model.App.Shortcut
-import com.whiskersapps.clawlauncher.shared.model.BookmarkGroup
+import com.whiskersapps.clawlauncher.shared.model.Group
 
 /** Possible user actions in the search screen.*/
 sealed class SearchScreenAction {
@@ -24,7 +24,7 @@ sealed class SearchScreenAction {
 
     data class OnRequestUninstall(val packageName: String) : SearchScreenAction()
 
-    data class OnOpenGroup(val group: BookmarkGroup) : SearchScreenAction()
+    data class OnOpenGroup(val group: Group) : SearchScreenAction()
 
     data object OnClearSearch : SearchScreenAction()
 

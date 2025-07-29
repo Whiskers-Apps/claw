@@ -4,19 +4,19 @@ import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
-import androidx.compose.animation.AnimatedContentTransitionScope
-import androidx.compose.animation.core.tween
 import androidx.compose.foundation.background
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
+import androidx.compose.foundation.layout.systemBarsPadding
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import androidx.navigation.compose.NavHost
-import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
+import com.whiskersapps.clawlauncher.onboarding.composables.PagerDots
 import com.whiskersapps.clawlauncher.onboarding.select_engine_screen.SelectEngineScreenRoot
 import com.whiskersapps.clawlauncher.onboarding.welcome_screen.WelcomeScreenRoot
-import com.whiskersapps.clawlauncher.shared.model.Routes
 import com.whiskersapps.clawlauncher.shared.view.theme.ClawLauncherTheme
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
@@ -31,46 +31,34 @@ class OnBoardingActivity : ComponentActivity() {
 
             if (settings != null) {
                 ClawLauncherTheme(settings) {
-                    val navController = rememberNavController()
+                    val pagerState = rememberPagerState(
+                        pageCount = { 3 }
+                    )
 
-                    NavHost(
+                    Column(
                         modifier = Modifier
                             .fillMaxSize()
-                            .background(MaterialTheme.colorScheme.background),
-                        startDestination = Routes.OnBoarding.WELCOME,
-                        navController = navController,
-                        enterTransition = {
-                            slideIntoContainer(
-                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                                animationSpec = tween(500)
-                            )
-                        },
-                        exitTransition = {
-                            slideOutOfContainer(
-                                towards = AnimatedContentTransitionScope.SlideDirection.Left,
-                                animationSpec = tween(500)
-                            )
-                        },
-                        popEnterTransition = {
-                            slideIntoContainer(
-                                towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                                animationSpec = tween(500)
-                            )
-                        },
-                        popExitTransition = {
-                            slideOutOfContainer(
-                                towards = AnimatedContentTransitionScope.SlideDirection.Right,
-                                animationSpec = tween(500)
-                            )
-                        }
+                            .background(MaterialTheme.colorScheme.background)
+                            .systemBarsPadding()
                     ) {
-                        composable(Routes.OnBoarding.WELCOME) {
-                            WelcomeScreenRoot(navController)
+                        HorizontalPager(
+                            state = pagerState,
+                            modifier = Modifier
+                                .fillMaxHeight()
+                                .weight(1f, fill = true)
+                        ) { page ->
+                            when (page) {
+                                0 -> {
+                                    WelcomeScreenRoot(pagerState)
+                                }
+
+                                1 -> {
+                                    SelectEngineScreenRoot(pagerState)
+                                }
+                            }
                         }
 
-                        composable(Routes.OnBoarding.SEARCH_ENGINES) {
-                            SelectEngineScreenRoot(navController)
-                        }
+                        PagerDots(pagerState)
                     }
                 }
             }

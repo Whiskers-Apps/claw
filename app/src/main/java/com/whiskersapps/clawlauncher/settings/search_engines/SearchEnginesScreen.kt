@@ -151,7 +151,7 @@ fun SearchEnginesScreen(
                             }
                         }
 
-                        if (state.searchEngines.any { it._id != state.defaultSearchEngineId }) {
+                        if (state.searchEngines.any { it.id != state.defaultSearchEngineId }) {
                             Text(
                                 modifier = Modifier.sidePadding(),
                                 text = stringResource(R.string.SearchEnginesScreen_others),
@@ -163,7 +163,7 @@ fun SearchEnginesScreen(
                 }
 
                 items(state.searchEngines) { searchEngine ->
-                    if (state.defaultSearchEngineId != searchEngine._id) {
+                    if (state.defaultSearchEngineId != searchEngine.id) {
                         SearchEngineCard(
                             searchEngine = searchEngine,
                             onClick = {

@@ -1,17 +1,12 @@
 package com.whiskersapps.clawlauncher.settings.bookmarks
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
 import com.whiskersapps.clawlauncher.bookmarks.di.BookmarksRepo
 import com.whiskersapps.clawlauncher.shared.model.Bookmark
-import com.whiskersapps.clawlauncher.shared.model.BookmarkGroup
-import io.realm.kotlin.ext.toRealmList
-import kotlinx.coroutines.Dispatchers
+import com.whiskersapps.clawlauncher.shared.model.Group
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
-import kotlinx.coroutines.launch
-import org.mongodb.kbson.ObjectId
 
 class BookmarksScreenVM(
     private val bookmarksRepository: BookmarksRepo
@@ -78,9 +73,9 @@ class BookmarksScreenVM(
         }
     }
 
-    private fun changeEditGroupBookmarkSelection(id: ObjectId, selected: Boolean) {
+    private fun changeEditGroupBookmarkSelection(id: Int, selected: Boolean) {
         val bookmarks = state.value.editGroupDialog.bookmarks.map { bookmarkGroup ->
-            if (bookmarkGroup.bookmark._id == id) bookmarkGroup.copy(selected = selected) else bookmarkGroup
+            if (bookmarkGroup.bookmark.id == id) bookmarkGroup.copy(selected = selected) else bookmarkGroup
         }
 
         _state.update { it.copy(editGroupDialog = it.editGroupDialog.copy(bookmarks = bookmarks)) }
@@ -96,18 +91,18 @@ class BookmarksScreenVM(
     }
 
     private fun saveGroupEdit() {
-        val selectedBookmarks =
-            state.value.editGroupDialog.bookmarks.filter { it.selected }.map { it.bookmark._id }
+//        val selectedBookmarks =
+//            state.value.editGroupDialog.bookmarks.filter { it.selected }.map { it.bookmark._id }
 
-        viewModelScope.launch(Dispatchers.IO) {
-            bookmarksRepository.updateBookmarkGroup(
-                id = state.value.editGroupDialog.id,
-                name = state.value.editGroupDialog.name,
-                bookmarks = selectedBookmarks
-            )
-
-            closeEditGroupDialog()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            bookmarksRepository.updateBookmarkGroup(
+//                id = state.value.editGroupDialog.id,
+//                name = state.value.editGroupDialog.name,
+//                bookmarks = selectedBookmarks
+//            )
+//
+//            closeEditGroupDialog()
+//        }
     }
 
     private fun editGroupDialogFields(name: String) {
@@ -118,28 +113,28 @@ class BookmarksScreenVM(
         _state.update { it.copy(addGroupDialog = it.addGroupDialog.copy(name = name)) }
     }
 
-    private fun changeAddGroupBookmarkSelection(id: ObjectId, selected: Boolean) {
-        val bookmarks = state.value.addGroupDialog.bookmarks.map { bookmarkGroup ->
-            if (bookmarkGroup.bookmark._id == id) bookmarkGroup.copy(selected = selected) else bookmarkGroup
-        }
-
-        _state.update { it.copy(addGroupDialog = it.addGroupDialog.copy(bookmarks = bookmarks)) }
+    private fun changeAddGroupBookmarkSelection(id: Int, selected: Boolean) {
+//        val bookmarks = state.value.addGroupDialog.bookmarks.map { bookmarkGroup ->
+//            if (bookmarkGroup.bookmark._id == id) bookmarkGroup.copy(selected = selected) else bookmarkGroup
+//        }
+//
+//        _state.update { it.copy(addGroupDialog = it.addGroupDialog.copy(bookmarks = bookmarks)) }
     }
 
     private fun addGroup() {
-        val selectedBookmarks =
-            state.value.addGroupDialog.bookmarks.filter { it.selected }.map { it.bookmark._id }
-
-        val group = BookmarkGroup().apply {
-            name = state.value.addGroupDialog.name
-            bookmarks = selectedBookmarks.toRealmList()
-        }
-
-        viewModelScope.launch(Dispatchers.IO) {
-            bookmarksRepository.addGroup(group)
-
-            closeAddGroupDialog()
-        }
+//        val selectedBookmarks =
+//            state.value.addGroupDialog.bookmarks.filter { it.selected }.map { it.bookmark._id }
+//
+//        val group = Group().apply {
+//            name = state.value.addGroupDialog.name
+//            bookmarks = selectedBookmarks.toRealmList()
+//        }
+//
+//        viewModelScope.launch(Dispatchers.IO) {
+//            bookmarksRepository.addGroup(group)
+//
+//            closeAddGroupDialog()
+//        }
     }
 
     private fun closeAddGroupDialog() {
@@ -151,25 +146,25 @@ class BookmarksScreenVM(
         }
     }
 
-    private fun openEditGroupDialog(group: BookmarkGroup) {
+    private fun openEditGroupDialog(group: Group) {
 
-        val bookmarks = state.value.bookmarks.map {
-            BookmarksScreenState.GroupBookmark(
-                bookmark = it,
-                selected = group.bookmarks.contains(it._id)
-            )
-        }
-
-        _state.update {
-            it.copy(
-                editGroupDialog = BookmarksScreenState.EditGroupDialog(
-                    id = group._id,
-                    name = group.name,
-                    bookmarks = bookmarks
-                ),
-                showEditGroupDialog = true
-            )
-        }
+//        val bookmarks = state.value.bookmarks.map {
+//            BookmarksScreenState.GroupBookmark(
+//                bookmark = it,
+//                selected = group.bookmarks.contains(it._id)
+//            )
+//        }
+//
+//        _state.update {
+//            it.copy(
+//                editGroupDialog = BookmarksScreenState.EditGroupDialog(
+//                    id = group._id,
+//                    name = group.name,
+//                    bookmarks = bookmarks
+//                ),
+//                showEditGroupDialog = true
+//            )
+//        }
     }
 
     private fun updateEditBookmarkDialogFields(dialog: BookmarksScreenState.EditBookmarkDialog) {
@@ -177,15 +172,15 @@ class BookmarksScreenVM(
     }
 
     private fun editBookmark() {
-        state.value.editBookmarkDialog.also {
-            bookmarksRepository.updateBookmark(it.bookmark._id, it.name, it.url)
-            closeEditBookmarkDialog()
-        }
+//        state.value.editBookmarkDialog.also {
+//            bookmarksRepository.updateBookmark(it.bookmark._id, it.name, it.url)
+//            closeEditBookmarkDialog()
+//        }
     }
 
     private fun deleteBookmark() {
-        bookmarksRepository.deleteBookmark(state.value.editBookmarkDialog.bookmark._id)
-        closeEditBookmarkDialog()
+//        bookmarksRepository.deleteBookmark(state.value.editBookmarkDialog.bookmark._id)
+//        closeEditBookmarkDialog()
     }
 
     private fun closeEditBookmarkDialog() {
@@ -239,31 +234,31 @@ class BookmarksScreenVM(
     }
 
     private fun addBookmark() {
-        val bookmark = Bookmark().apply {
-            name = state.value.addBookmarkDialog.name
-            url = state.value.addBookmarkDialog.url
-        }
-
-        bookmarksRepository.addBookmark(bookmark)
-        closeAddBookmarkDialog()
+//        val bookmark = Bookmark().apply {
+//            name = state.value.addBookmarkDialog.name
+//            url = state.value.addBookmarkDialog.url
+//        }
+//
+//        bookmarksRepository.addBookmark(bookmark)
+//        closeAddBookmarkDialog()
     }
 
     private fun deleteGroup() {
-        bookmarksRepository.deleteBookmarkGroup(state.value.editGroupDialog.id)
-        closeEditGroupDialog()
+//        bookmarksRepository.deleteBookmarkGroup(state.value.editGroupDialog.id)
+//        closeEditGroupDialog()
     }
 
     init {
-        viewModelScope.launch(Dispatchers.IO) {
-            bookmarksRepository.data.collect { data ->
-                _state.update {
-                    it.copy(
-                        loading = false,
-                        bookmarks = data.bookmarks,
-                        groups = data.groups
-                    )
-                }
-            }
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            bookmarksRepository.data.collect { data ->
+//                _state.update {
+//                    it.copy(
+//                        loading = false,
+//                        bookmarks = data.bookmarks,
+//                        groups = data.groups
+//                    )
+//                }
+//            }
+//        }
     }
 }

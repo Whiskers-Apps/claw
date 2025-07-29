@@ -20,9 +20,8 @@ import com.whiskersapps.clawlauncher.shared.utils.modifyWhen
 fun AppIcon(
     app: App,
     size: Dp? = null,
-    useThemed: Boolean
 ) {
-    val icon by remember { derivedStateOf { if (useThemed) app.icons.themed!!.default.asImageBitmap() else app.icons.stock.default.asImageBitmap() } }
+    val icon by remember { derivedStateOf { if (app.icons.themed != null) app.icons.themed.default.asImageBitmap() else app.icons.stock.default.asImageBitmap() } }
 
     Box(
         modifier = Modifier
@@ -35,11 +34,9 @@ fun AppIcon(
             modifier = Modifier
                 .fillMaxHeight()
                 .aspectRatio(1f),
-//                .scale(1.05f),
             bitmap = icon,
             contentDescription = "${app.name} icon",
             contentScale = ContentScale.FillBounds,
-//            colorFilter = ColorFilter.colorMatrix(ColorMatrix().apply { setToSaturation(0f) })
         )
     }
 }

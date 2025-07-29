@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.whiskersapps.clawlauncher.bookmarks.di.BookmarksRepo
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
-import com.whiskersapps.clawlauncher.shared.model.Bookmark
 import com.whiskersapps.clawlauncher.shared.utils.isUrl
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -66,15 +65,15 @@ class BookmarksShareScreenVM(
     }
 
     private fun addBookmark() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val bookmark = Bookmark().apply {
-                name = state.value.name
-                url = state.value.url
-            }
-
-            bookmarksRepo.addBookmark(bookmark)
-
-            onBookmarkAddedListener()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val bookmark = Bookmark().apply {
+//                name = state.value.name
+//                url = state.value.url
+//            }
+//
+//            bookmarksRepo.addBookmark(bookmark)
+//
+//            onBookmarkAddedListener()
+//        }
     }
 }

@@ -2,7 +2,7 @@ plugins {
     id("com.google.devtools.ksp")
     alias(libs.plugins.android.application)
     alias(libs.plugins.jetbrains.kotlin.android)
-    id("io.realm.kotlin")
+    alias(libs.plugins.compose.compiler)
 }
 
 android {
@@ -80,9 +80,7 @@ dependencies {
     // ViewModel
     implementation(libs.androidx.lifecycle.viewmodel.compose)
 
-    // Mongo Realm
     implementation(libs.kotlinx.coroutines.core)
-    implementation(libs.library.base)
 
     // Routes
     implementation(libs.androidx.navigation.compose)
@@ -103,4 +101,11 @@ dependencies {
     implementation(libs.koin.androidx.navigation)
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
+
+    implementation(libs.droid.icons)
+
+    // Room DB
+    implementation(libs.androidx.room.runtime)
+    ksp(libs.androidx.room.compiler)
+    implementation(libs.androidx.room.ktx)
 }

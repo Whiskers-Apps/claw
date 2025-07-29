@@ -6,19 +6,18 @@ import androidx.core.net.toUri
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.whiskersapps.clawlauncher.launcher.foldable.FoldableRepo
-import com.whiskersapps.clawlauncher.launcher.apps.di.AppsRepo
 import com.whiskersapps.clawlauncher.bookmarks.di.BookmarksRepo
+import com.whiskersapps.clawlauncher.launcher.apps.di.AppsRepo
+import com.whiskersapps.clawlauncher.launcher.foldable.FoldableRepo
 import com.whiskersapps.clawlauncher.launcher.search_engines.SearchEnginesRepo
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
 import com.whiskersapps.clawlauncher.shared.model.App
 import com.whiskersapps.clawlauncher.shared.model.Bookmark
-import com.whiskersapps.clawlauncher.shared.model.BookmarkGroup
+import com.whiskersapps.clawlauncher.shared.model.Group
 import com.whiskersapps.clawlauncher.shared.model.SearchEngine
 import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_DARK_MODE
 import com.whiskersapps.clawlauncher.shared.utils.requestFingerprint
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
@@ -45,7 +44,7 @@ class SearchScreenVM(
             val searchText: String = "",
             val apps: List<App> = emptyList(),
             val bookmarks: List<Bookmark> = emptyList(),
-            val groups: List<BookmarkGroup> = emptyList(),
+            val groups: List<Group> = emptyList(),
             val focusSearchBar: Boolean = false,
             val searchEngine: SearchEngine? = null,
             val portraitColors: Int = 0,
@@ -92,28 +91,28 @@ class SearchScreenVM(
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            searchEnginesRepo.data.collect { data ->
-                _state.update {
-                    it.copy(
-                        loading = it.loadingSettings || it.loadingBookmarks,
-                        loadingSearchEngines = false,
-                        searchEngine = data.defaultSearchEngine
-                    )
-                }
-            }
+//            searchEnginesRepo.data.collect { data ->
+//                _state.update {
+//                    it.copy(
+//                        loading = it.loadingSettings || it.loadingBookmarks,
+//                        loadingSearchEngines = false,
+//                        searchEngine = data.defaultSearchEngine
+//                    )
+//                }
+//            }
         }
 
         viewModelScope.launch(Dispatchers.IO) {
-            bookmarksRepository.data.collect { data ->
-                _state.update {
-                    it.copy(
-                        loading = it.loadingSettings || it.loadingSearchEngines,
-                        loadingBookmarks = false,
-                        bookmarks = data.bookmarks,
-                        groups = data.groups
-                    )
-                }
-            }
+//            bookmarksRepository.data.collect { data ->
+//                _state.update {
+//                    it.copy(
+//                        loading = it.loadingSettings || it.loadingSearchEngines,
+//                        loadingBookmarks = false,
+//                        bookmarks = data.bookmarks,
+//                        groups = data.groups
+//                    )
+//                }
+//            }
         }
     }
 
@@ -155,26 +154,28 @@ class SearchScreenVM(
         viewModelScope.launch {
 
             val newApps = if (text.isEmpty()) ArrayList() else appsRepo.getSearchedApps(text)
-
-            val newBookmarks =
-                if (text.isEmpty()) emptyList() else bookmarksRepository.getSearchedBookmarks(text)
-
-            val newGroups =
-                if (text.isEmpty()) emptyList() else bookmarksRepository.getSearchedGroups(text)
-
+//
+//            val newBookmarks =
+//                if (text.isEmpty()) emptyList() else bookmarksRepository.getSearchedBookmarks(text)
+//
+//            val newGroups =
+//                if (text.isEmpty()) emptyList() else bookmarksRepository.getSearchedGroups(text)
+//
             _state.update {
                 it.copy(
                     apps = if (newApps.size >= 8)
                         newApps.subList(0, 8)
                     else newApps,
 
-                    bookmarks = if (newBookmarks.size >= 8)
-                        newBookmarks.subList(0, 8)
-                    else newBookmarks,
-
-                    groups = if (newGroups.size >= 8)
-                        newGroups.subList(0, 8)
-                    else newGroups,
+//                    bookmarks = if (newBookmarks.size >= 8)
+//                        newBookmarks.subList(0, 8)
+//                    else newBookmarks,
+//
+//                    groups = if (newGroups.size >= 8)
+//                        newGroups.subList(0, 8)
+//                    else newGroups,
+                    bookmarks = emptyList(),
+                    groups = emptyList(),
 
                     showResults = text.trim().isNotEmpty()
                 )
@@ -265,19 +266,19 @@ class SearchScreenVM(
         }
     }
 
-    private fun onOpenGroup(group: BookmarkGroup) {
-        viewModelScope.launch {
-            val urls = bookmarksRepository.data.value.bookmarks
-                .filter { group.bookmarks.contains(it._id) }
-                .map { it.url }
-
-            for (url in urls) {
-                onOpenUrl(url)
-                delay(200)
-            }
-
-            clearSearch()
-        }
+    private fun onOpenGroup(group: Group) {
+//        viewModelScope.launch {
+//            val urls = bookmarksRepository.data.value.bookmarks
+//                .filter { group.bookmarks.contains(it._id) }
+//                .map { it.url }
+//
+//            for (url in urls) {
+//                onOpenUrl(url)
+//                delay(200)
+//            }
+//
+//            clearSearch()
+//        }
     }
 
     private fun clearSearch() {

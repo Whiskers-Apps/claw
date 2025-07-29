@@ -209,7 +209,7 @@ fun BookmarksScreen(
                         }
                     } else {
                         LazyColumn(Modifier.fillMaxSize()) {
-                            items(state.groups, key = { it._id.toHexString() }) { group ->
+                            items(state.groups, key = { it.id }) { group ->
                                 Row(
                                     modifier = Modifier
                                         .fillMaxWidth()

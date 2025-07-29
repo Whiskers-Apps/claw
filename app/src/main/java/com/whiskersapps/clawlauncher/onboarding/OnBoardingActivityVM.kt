@@ -24,14 +24,5 @@ class OnBoardingActivityVM(
                 _settings.update { newSettings }
             }
         }
-        viewModelScope.launch {
-            searchEnginesRepo.data.collect { data ->
-                if (!data.loading) {
-                    if (data.searchEngines.isEmpty()) {
-                        searchEnginesRepo.initEngines()
-                    }
-                }
-            }
-        }
     }
 }

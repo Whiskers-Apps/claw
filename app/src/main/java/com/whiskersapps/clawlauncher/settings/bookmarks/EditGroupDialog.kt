@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import coil.compose.AsyncImage
 import com.whiskersapps.clawlauncher.R
+import com.whiskersapps.clawlauncher.settings.search_engines.SwipeToDelete
 import com.whiskersapps.clawlauncher.shared.utils.getCachedImageRequest
 import com.whiskersapps.clawlauncher.shared.utils.getFaviconUrl
 import com.whiskersapps.clawlauncher.shared.view.composables.Dialog
@@ -31,7 +32,6 @@ import com.whiskersapps.clawlauncher.shared.view.composables.DialogFooter
 import com.whiskersapps.clawlauncher.shared.view.composables.DialogHeader
 import com.whiskersapps.clawlauncher.shared.view.composables.RoundTextField
 import com.whiskersapps.clawlauncher.shared.view.theme.Typography
-import com.whiskersapps.clawlauncher.settings.search_engines.SwipeToDelete
 
 @Composable
 fun EditGroupDialog(
@@ -72,7 +72,7 @@ fun EditGroupDialog(
 
             items(
                 items = state.editGroupDialog.bookmarks,
-                key = { it.bookmark._id.toHexString() }
+                key = { it.bookmark.id }
             ) { item ->
                 Row(
                     modifier = Modifier
@@ -80,7 +80,7 @@ fun EditGroupDialog(
                         .clickable {
                             onAction(
                                 BookmarksScreenAction.ChangeEditGroupBookmarkSelection(
-                                    item.bookmark._id,
+                                    item.bookmark.id,
                                     !item.selected
                                 )
                             )
@@ -123,7 +123,7 @@ fun EditGroupDialog(
                         onCheckedChange = {
                             onAction(
                                 BookmarksScreenAction.ChangeEditGroupBookmarkSelection(
-                                    item.bookmark._id,
+                                    item.bookmark.id,
                                     it
                                 )
                             )

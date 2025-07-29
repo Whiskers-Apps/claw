@@ -27,7 +27,8 @@ fun OnBoardingButton(
         }
     } else {
         Button(
-            onClick = { onClick() }
+            onClick = { onClick() },
+            modifier = Modifier.height(56.dp)
         ) {
             Text(
                 text = text,

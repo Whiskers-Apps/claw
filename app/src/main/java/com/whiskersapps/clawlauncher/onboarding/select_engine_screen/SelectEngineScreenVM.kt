@@ -4,29 +4,30 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.whiskersapps.clawlauncher.launcher.search_engines.SearchEnginesRepo
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
-import com.whiskersapps.clawlauncher.shared.model.SearchEngine
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
-class SelectEngineScreenVM constructor(
+class SelectEngineScreenVM(
     private val searchEnginesRepo: SearchEnginesRepo,
     private val settingsRepo: SettingsRepo
 ) : ViewModel() {
-
     private val _state = MutableStateFlow(SelectEngineScreenState())
     val state = _state.asStateFlow()
 
+    private val ioScope = CoroutineScope(Dispatchers.IO)
+
     init {
         viewModelScope.launch(Dispatchers.IO) {
-            searchEnginesRepo.data.collect { data ->
+            searchEnginesRepo.searchEngines.collect { searchEngines ->
                 _state.update {
                     it.copy(
                         loading = false,
-                        searchEngines = data.searchEngines,
-                        selectedEngine = data.defaultSearchEngine
+                        searchEngines = searchEngines,
+                        selectedEngine = searchEnginesRepo.getDefaultEngine()
                     )
                 }
             }
@@ -37,22 +38,15 @@ class SelectEngineScreenVM constructor(
         when (action) {
             SelectEngineScreenAction.Finish -> finishSetup()
             SelectEngineScreenAction.NavigateBack -> {}
-            is SelectEngineScreenAction.SetDefaultEngine -> setDefaultEngine(action.searchEngine)
+            is SelectEngineScreenAction.SetDefaultEngine -> setDefaultEngine(action.id)
         }
     }
 
     private fun finishSetup() {
-        viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.setSetupCompleted(true)
-        }
+        settingsRepo.setSetupCompleted(true)
     }
 
-    private fun setDefaultEngine(searchEngine: SearchEngine) {
-
-        _state.update { it.copy(selectedEngine = searchEngine) }
-
-        viewModelScope.launch(Dispatchers.IO) {
-            searchEnginesRepo.makeDefaultEngine(searchEngine._id)
-        }
+    private fun setDefaultEngine(id: Int) {
+        searchEnginesRepo.setDefault(id)
     }
 }

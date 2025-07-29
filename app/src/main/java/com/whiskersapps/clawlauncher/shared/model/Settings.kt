@@ -51,9 +51,6 @@ data class Settings(
     /** The search bar radius on the apps screen */
     val appsSearchBarRadius: Int = DEFAULT_APPS_SEARCH_BAR_RADIUS,
 
-    /** The default search engine to be used when searching the web */
-    val defaultSearchEngine: String = DEFAULT_DEFAULT_SEARCH_ENGINE,
-
     /**
      * The selected dark mode. It will override the device mode in case it's not system
      *
@@ -146,9 +143,6 @@ data class Settings(
 
         val APPS_SEARCH_BAR_RADIUS = intPreferencesKey("apps-search-bar-radius")
         const val DEFAULT_APPS_SEARCH_BAR_RADIUS = 50
-
-        val DEFAULT_SEARCH_ENGINE = stringPreferencesKey("default-search-engine")
-        const val DEFAULT_DEFAULT_SEARCH_ENGINE = ""
 
         val DARK_MODE = stringPreferencesKey("dark-mode")
         const val DEFAULT_DARK_MODE = "system"

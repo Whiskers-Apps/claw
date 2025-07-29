@@ -4,29 +4,30 @@ import android.app.Application
 import android.content.Context
 import androidx.datastore.preferences.core.edit
 import androidx.datastore.preferences.preferencesDataStore
-import com.whiskersapps.clawlauncher.shared.model.SecuritySettings
+import com.whiskersapps.clawlauncher.core.db.AppDB
 import com.whiskersapps.clawlauncher.shared.model.Settings
-import io.realm.kotlin.Realm
-import io.realm.kotlin.ext.query
-import io.realm.kotlin.ext.toRealmList
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.catch
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.update
+import kotlinx.coroutines.launch
 
 val Context.dataStore by preferencesDataStore("settings")
 
 class SettingsRepo(
     app: Application,
-    private val realm: Realm
+    private val db: AppDB
 ) {
     private val dataStore = app.dataStore
 
     private val _settings = MutableStateFlow(Settings())
     val settings = _settings.asStateFlow()
 
+    private val ioScope = CoroutineScope(Dispatchers.IO)
 
     val settingsFlow: Flow<Settings> = dataStore.data
         .catch {
@@ -75,9 +76,6 @@ class SettingsRepo(
                 appsSearchBarRadius = preferences[Settings.APPS_SEARCH_BAR_RADIUS]
                     ?: Settings.DEFAULT_APPS_SEARCH_BAR_RADIUS,
 
-                defaultSearchEngine = preferences[Settings.DEFAULT_SEARCH_ENGINE]
-                    ?: Settings.DEFAULT_DEFAULT_SEARCH_ENGINE,
-
                 darkMode = preferences[Settings.DARK_MODE] ?: Settings.DEFAULT_DARK_MODE,
 
                 theme = preferences[Settings.THEME] ?: Settings.DEFAULT_THEME,
@@ -116,8 +114,10 @@ class SettingsRepo(
             newSettings
         }
 
-    suspend fun setSetupCompleted(setupCompleted: Boolean) {
-        dataStore.edit { it[Settings.SETUP_COMPLETED] = setupCompleted }
+    fun setSetupCompleted(setupCompleted: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SETUP_COMPLETED] = setupCompleted }
+        }
     }
 
     suspend fun setAppsViewType(appsViewType: String) {
@@ -162,10 +162,6 @@ class SettingsRepo(
         dataStore.edit { it[Settings.APPS_SEARCH_BAR_POSITION] = appsSearchBarPosition }
     }
 
-    suspend fun updateDefaultSearchEngine(id: String) {
-        dataStore.edit { it[Settings.DEFAULT_SEARCH_ENGINE] = id }
-    }
-
     suspend fun setShowAppsSearchBarPlaceholder(show: Boolean) {
         dataStore.edit { it[Settings.SHOW_APPS_SEARCH_BAR_PLACEHOLDER] = show }
     }
@@ -187,47 +183,49 @@ class SettingsRepo(
     }
 
     private fun getHiddenApps(): List<String> {
-        return realm.query<SecuritySettings>().find().firstOrNull()?.hiddenApps ?: emptyList()
+//        return realm.query<SecuritySettings>().find().firstOrNull()?.hiddenApps ?: emptyList()
+        return emptyList()
     }
 
     fun setHiddenApps(apps: List<String>) {
-        realm.writeBlocking {
-            val securitySettings = query<SecuritySettings>().find().firstOrNull()
-
-            if (securitySettings == null) {
-                val settings = SecuritySettings().apply {
-                    hiddenApps = apps.toRealmList()
-                }
-
-                copyToRealm(settings)
-            } else {
-                securitySettings.hiddenApps = apps.toRealmList()
-            }
-        }
-
-        _settings.update { it.copy(hiddenApps = apps) }
+//        realm.writeBlocking {
+//            val securitySettings = query<SecuritySettings>().find().firstOrNull()
+//
+//            if (securitySettings == null) {
+//                val settings = SecuritySettings().apply {
+//                    hiddenApps = apps.toRealmList()
+//                }
+//
+//                copyToRealm(settings)
+//            } else {
+//                securitySettings.hiddenApps = apps.toRealmList()
+//            }
+//        }
+//
+//        _settings.update { it.copy(hiddenApps = apps) }
     }
 
     private fun getSecureApps(): List<String> {
-        return realm.query<SecuritySettings>().first().find()?.secureApps ?: emptyList()
+//        return realm.query<SecuritySettings>().first().find()?.secureApps ?: emptyList()
+        return emptyList()
     }
 
     fun setSecureApps(apps: List<String>) {
-        realm.writeBlocking {
-            val securitySettings = query<SecuritySettings>().find().firstOrNull()
-
-            if (securitySettings == null) {
-                val settings = SecuritySettings().apply {
-                    secureApps = apps.toRealmList()
-                }
-
-                copyToRealm(settings)
-            } else {
-                securitySettings.secureApps = apps.toRealmList()
-            }
-        }
-
-        _settings.update { it.copy(secureApps = apps) }
+//        realm.writeBlocking {
+//            val securitySettings = query<SecuritySettings>().find().firstOrNull()
+//
+//            if (securitySettings == null) {
+//                val settings = SecuritySettings().apply {
+//                    secureApps = apps.toRealmList()
+//                }
+//
+//                copyToRealm(settings)
+//            } else {
+//                securitySettings.secureApps = apps.toRealmList()
+//            }
+//        }
+//
+//        _settings.update { it.copy(secureApps = apps) }
     }
 
     suspend fun setSwipeUpToSearch(swipeUp: Boolean) {

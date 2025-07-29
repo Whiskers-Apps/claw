@@ -15,12 +15,14 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.distinctUntilChangedBy
 import kotlinx.coroutines.launch
+import org.whiskersapps.droid.droid_icons.IconFetcher
 import org.xmlpull.v1.XmlPullParser
 
 class IconPacksRepo(
     private val app: Application,
     private val settingsRepo: SettingsRepo
 ) {
+    private val iconFetcher = IconFetcher(app)
     private val packageManager = app.packageManager
     private var iconPacks = emptyList<String>()
     private var currentIconPack = ""

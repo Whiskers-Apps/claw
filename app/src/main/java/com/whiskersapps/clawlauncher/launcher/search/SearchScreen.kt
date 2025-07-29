@@ -204,7 +204,7 @@ fun SearchScreen(
                             ) {
                                 items(
                                     items = state.groups,
-                                    key = { "group - ${it._id.toHexString()}" }
+                                    key = { "group - ${it.id}" }
                                 ) { group ->
                                     Row(
                                         modifier = Modifier
@@ -237,7 +237,7 @@ fun SearchScreen(
                                 }
                                 items(
                                     items = state.bookmarks,
-                                    key = { it._id.toHexString() }
+                                    key = { it.id }
                                 ) { bookmark ->
                                     BookmarkResult(
                                         bookmark = bookmark,

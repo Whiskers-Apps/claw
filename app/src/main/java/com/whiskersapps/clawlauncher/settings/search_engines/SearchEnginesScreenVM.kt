@@ -21,13 +21,15 @@ class SearchEnginesScreenVM(
     init {
 
         viewModelScope.launch(Dispatchers.IO) {
-            searchEnginesRepo.data.collect { data ->
+            searchEnginesRepo.searchEngines.collect { searchEngines ->
+                val defaultEngine = searchEnginesRepo.getDefaultEngine()
+
                 _state.update {
                     it.copy(
                         loading = false,
-                        searchEngines = data.searchEngines,
-                        defaultSearchEngine = data.defaultSearchEngine,
-                        defaultSearchEngineId = data.defaultSearchEngine?._id
+                        searchEngines = searchEngines,
+                        defaultSearchEngine = defaultEngine,
+                        defaultSearchEngineId = defaultEngine?.id
                     )
                 }
             }
@@ -73,33 +75,33 @@ class SearchEnginesScreenVM(
     }
 
     private fun addEngine() {
-        viewModelScope.launch(Dispatchers.IO) {
-            val searchEngine = SearchEngine().apply {
-                name = state.value.addEngineDialog.name
-                query = state.value.addEngineDialog.query
-            }
-
-            searchEnginesRepo.addSearchEngine(searchEngine)
-
-            if (state.value.editEngineDialog.defaultEngine) {
-                searchEnginesRepo.makeDefaultEngine(searchEngine._id)
-            } else {
-                searchEnginesRepo.clearDefaultEngine()
-            }
-
-            closeAddEngineDialog()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            val searchEngine = SearchEngine().apply {
+//                name = state.value.addEngineDialog.name
+//                query = state.value.addEngineDialog.query
+//            }
+//
+//            searchEnginesRepo.addSearchEngine(searchEngine)
+//
+//            if (state.value.editEngineDialog.defaultEngine) {
+//                searchEnginesRepo.makeDefaultEngine(searchEngine._id)
+//            } else {
+//                searchEnginesRepo.clearDefaultEngine()
+//            }
+//
+//            closeAddEngineDialog()
+//        }
     }
 
     private fun showEditEngineDialog(searchEngine: SearchEngine) {
         _state.update {
             it.copy(
                 editEngineDialog = SearchEnginesScreenState.EditEngineDialog(
-                    id = searchEngine._id,
+                    id = searchEngine.id,
                     show = true,
                     name = searchEngine.name,
                     query = searchEngine.query,
-                    defaultEngine = searchEngine._id == state.value.defaultSearchEngineId
+                    defaultEngine = searchEngine.id == state.value.defaultSearchEngineId
                 )
             )
         }
@@ -126,35 +128,35 @@ class SearchEnginesScreenVM(
     }
 
     private fun saveEditEngine() {
-        viewModelScope.launch(Dispatchers.IO) {
-
-            val defaultEngineId = state.value.defaultSearchEngineId
-            val engineId = state.value.editEngineDialog.id
-            val editIsDefault = state.value.editEngineDialog.defaultEngine
-
-            if (editIsDefault && defaultEngineId != engineId) {
-                searchEnginesRepo.makeDefaultEngine(engineId)
-            }
-
-            if (!editIsDefault && defaultEngineId == engineId) {
-                searchEnginesRepo.clearDefaultEngine()
-            }
-
-            searchEnginesRepo.updateSearchEngine(
-                state.value.editEngineDialog.id,
-                state.value.editEngineDialog.name,
-                state.value.editEngineDialog.query
-            )
-
-            closeEditDialog()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//
+//            val defaultEngineId = state.value.defaultSearchEngineId
+//            val engineId = state.value.editEngineDialog.id
+//            val editIsDefault = state.value.editEngineDialog.defaultEngine
+//
+//            if (editIsDefault && defaultEngineId != engineId) {
+//                searchEnginesRepo.setDefault(engineId)
+//            }
+//
+//            if (!editIsDefault && defaultEngineId == engineId) {
+//                searchEnginesRepo.clearDefaultEngine()
+//            }
+//
+//            searchEnginesRepo.updateSearchEngine(
+//                state.value.editEngineDialog.id,
+//                state.value.editEngineDialog.name,
+//                state.value.editEngineDialog.query
+//            )
+//
+//            closeEditDialog()
+//        }
     }
 
     private fun deleteEngine() {
-        viewModelScope.launch(Dispatchers.IO) {
-            searchEnginesRepo.deleteSearchEngine(state.value.editEngineDialog.id)
-
-            closeEditDialog()
-        }
+//        viewModelScope.launch(Dispatchers.IO) {
+//            searchEnginesRepo.deleteSearchEngine(state.value.editEngineDialog.id)
+//
+//            closeEditDialog()
+//        }
     }
 }

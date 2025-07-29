@@ -1,8 +1,7 @@
 package com.whiskersapps.clawlauncher.settings.bookmarks
 
 import com.whiskersapps.clawlauncher.shared.model.Bookmark
-import com.whiskersapps.clawlauncher.shared.model.BookmarkGroup
-import org.mongodb.kbson.ObjectId
+import com.whiskersapps.clawlauncher.shared.model.Group
 
 sealed class BookmarksScreenAction {
     data object NavigateBack : BookmarksScreenAction()
@@ -13,7 +12,7 @@ sealed class BookmarksScreenAction {
 
     data class OpenEditBookmarkDialog(val bookmark: Bookmark) : BookmarksScreenAction()
 
-    data class OpenEditGroupDialog(val group: BookmarkGroup) : BookmarksScreenAction()
+    data class OpenEditGroupDialog(val group: Group) : BookmarksScreenAction()
 
     data object CloseAddBookmarkDialog : BookmarksScreenAction()
 
@@ -37,14 +36,14 @@ sealed class BookmarksScreenAction {
 
     data object DeleteBookmark : BookmarksScreenAction()
 
-    data class ChangeAddGroupBookmarkSelection(val id: ObjectId, val selected: Boolean) :
+    data class ChangeAddGroupBookmarkSelection(val id: Int, val selected: Boolean) :
         BookmarksScreenAction()
 
     data object CloseEditGroupDialog : BookmarksScreenAction()
 
     data class UpdateEditGroupDialogFields(val name: String) : BookmarksScreenAction()
 
-    data class ChangeEditGroupBookmarkSelection(val id: ObjectId, val selected: Boolean) :
+    data class ChangeEditGroupBookmarkSelection(val id: Int, val selected: Boolean) :
         BookmarksScreenAction()
 
     data object SaveGroupEdit : BookmarksScreenAction()
