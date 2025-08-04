@@ -15,7 +15,7 @@ import com.whiskersapps.clawlauncher.shared.model.App
 import com.whiskersapps.clawlauncher.shared.model.Bookmark
 import com.whiskersapps.clawlauncher.shared.model.Group
 import com.whiskersapps.clawlauncher.shared.model.SearchEngine
-import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_DARK_MODE
+import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_THEME
 import com.whiskersapps.clawlauncher.shared.utils.requestFingerprint
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -50,7 +50,7 @@ class SearchScreenVM(
             val portraitColors: Int = 0,
             val landscapeCols: Int = 0,
             val showResults: Boolean = false,
-            val darkMode: String = DEFAULT_DARK_MODE
+            val darkMode: String = DEFAULT_THEME
         )
     }
 

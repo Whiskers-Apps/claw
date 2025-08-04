@@ -1,8 +1,6 @@
 package com.whiskersapps.clawlauncher.shared.view.theme
 
 import android.app.Activity
-import android.view.Window
-import android.view.WindowInsetsController
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.ColorScheme
@@ -12,19 +10,15 @@ import androidx.compose.material3.dynamicDarkColorScheme
 import androidx.compose.material3.dynamicLightColorScheme
 import androidx.compose.material3.lightColorScheme
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.SideEffect
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
-import androidx.core.view.ViewCompat
 import androidx.core.view.WindowCompat
-import androidx.core.view.WindowInsetsControllerCompat
 import com.whiskersapps.clawlauncher.shared.model.Settings
 import com.whiskersapps.clawlauncher.shared.utils.isAtLeastAndroid12
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.withContext
 
 @Composable
 fun ClawLauncherTheme(
@@ -33,7 +27,7 @@ fun ClawLauncherTheme(
 ) {
     val context = LocalContext.current
 
-    val darkMode = when (settings.darkMode) {
+    val darkMode = when (settings.theme) {
         "light" -> AppCompatDelegate.MODE_NIGHT_NO
         "dark" -> AppCompatDelegate.MODE_NIGHT_YES
         else -> AppCompatDelegate.MODE_NIGHT_FOLLOW_SYSTEM
@@ -41,9 +35,9 @@ fun ClawLauncherTheme(
 
     AppCompatDelegate.setDefaultNightMode(darkMode)
 
-    val useMonet = settings.theme == "monet"
-    val useDarkMonet = settings.darkTheme == "monet"
-    val useDarkTheme = useDarkTheme(darkMode = settings.darkMode)
+    val useMonet = settings.palette == "monet"
+    val useDarkMonet = settings.darkPalette == "monet"
+    val useDarkTheme = useDarkTheme(darkMode = settings.theme)
     val view = LocalView.current
     val window = (view.context as Activity).window
     val scope = rememberCoroutineScope()
@@ -63,9 +57,9 @@ fun ClawLauncherTheme(
             dynamicDarkColorScheme(context)
         } else {
             if (useDarkTheme)
-                getDarkColorScheme(id = settings.darkTheme)
+                getDarkColorScheme(id = settings.darkPalette)
             else
-                getLightColorScheme(id = settings.theme)
+                getLightColorScheme(id = settings.palette)
         },
         typography = Typography,
         content = content

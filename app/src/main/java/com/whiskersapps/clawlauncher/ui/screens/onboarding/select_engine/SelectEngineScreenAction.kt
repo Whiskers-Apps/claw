@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.onboarding.select_engine_screen
+package com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine
 
 sealed class SelectEngineScreenAction {
     data object Finish : SelectEngineScreenAction()

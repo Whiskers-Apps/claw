@@ -1,8 +1,7 @@
-package com.whiskersapps.clawlauncher.onboarding
+package com.whiskersapps.clawlauncher.ui.screens.onboarding
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.whiskersapps.clawlauncher.launcher.search_engines.SearchEnginesRepo
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
 import com.whiskersapps.clawlauncher.shared.model.Settings
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -12,7 +11,6 @@ import kotlinx.coroutines.launch
 
 class OnBoardingActivityVM(
     settingsRepo: SettingsRepo,
-    searchEnginesRepo: SearchEnginesRepo
 ) : ViewModel() {
 
     private val _settings = MutableStateFlow<Settings?>(null)

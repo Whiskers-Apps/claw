@@ -3,6 +3,7 @@ package com.whiskersapps.clawlauncher.shared.model
 import androidx.datastore.preferences.core.booleanPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import com.whiskersapps.clawlauncher.data.settings.SettingsValues
 import com.whiskersapps.clawlauncher.shared.utils.isAtLeastAndroid12
 
 data class Settings(
@@ -55,19 +56,19 @@ data class Settings(
      * The selected dark mode. It will override the device mode in case it's not system
      *
      * Possible values: **"system"**, **"light"**, **"dark"** */
-    val darkMode: String = DEFAULT_DARK_MODE,
+    val theme: String = DEFAULT_THEME,
 
     /**
      * The selected light theme.
      *
      * Possible values: **"monet"**, "tiger-{accent}""*/
-    val theme: String = DEFAULT_THEME,
+    val palette: String = DEFAULT_PALETTE,
 
     /**
      * The selected dark theme.
      *
      * Possible values: "monet", "panther-{accent}"" */
-    val darkTheme: String = DEFAULT_DARK_THEME,
+    val darkPalette: String = DEFAULT_DARK_PALETTE,
 
     /** A list of apps package names that will be hidden on search and apps screen */
     val hiddenApps: List<String> = emptyList(),
@@ -139,19 +140,21 @@ data class Settings(
         const val DEFAULT_SHOW_APPS_SEARCH_BAR_PLACEHOLDER = true
 
         val APPS_SEARCH_BAR_POSITION = stringPreferencesKey("apps-search-bar-position")
-        const val DEFAULT_APPS_SEARCH_BAR_POSITION = "bottom"
+        const val DEFAULT_APPS_SEARCH_BAR_POSITION = SettingsValues.AppsSearchBarPosition.BOTTOM
 
         val APPS_SEARCH_BAR_RADIUS = intPreferencesKey("apps-search-bar-radius")
         const val DEFAULT_APPS_SEARCH_BAR_RADIUS = 50
 
-        val DARK_MODE = stringPreferencesKey("dark-mode")
-        const val DEFAULT_DARK_MODE = "system"
-
         val THEME = stringPreferencesKey("theme")
-        val DEFAULT_THEME = if (isAtLeastAndroid12()) "monet" else "tiger-banana"
+        const val DEFAULT_THEME = SettingsValues.Theme.SYSTEM
 
-        val DARK_THEME = stringPreferencesKey("dark-theme")
-        val DEFAULT_DARK_THEME = if (isAtLeastAndroid12()) "monet" else "panther-banana"
+        val PALETTE = stringPreferencesKey("palette")
+        val DEFAULT_PALETTE =
+            if (isAtLeastAndroid12()) SettingsValues.Palette.MONET else SettingsValues.Palette.LYNX
+
+        val DARK_PALETTE = stringPreferencesKey("dark-palette")
+        val DEFAULT_DARK_PALETTE =
+            if (isAtLeastAndroid12()) SettingsValues.DarkPalette.MONET else SettingsValues.DarkPalette.PANTHER
 
         val SWIPE_UP_TO_SEARCH = booleanPreferencesKey("swipe-up-to-search")
         const val DEFAULT_SWIPE_UP_TO_SEARCH = true
@@ -166,7 +169,7 @@ data class Settings(
         const val DEFAULT_SPLIT_LIST_VIEW = true
 
         val CLOCK_PLACEMENT = stringPreferencesKey("clock-placement")
-        const val DEFAULT_CLOCK_PLACEMENT = "top"
+        const val DEFAULT_CLOCK_PLACEMENT = SettingsValues.ClockPlacement.TOP
 
         val PILL_SHAPE_CLOCK = booleanPreferencesKey("pill-shape-clock")
         const val DEFAULT_PILL_SHAPE_CLOCK = true
@@ -175,6 +178,6 @@ data class Settings(
         const val DEFAULT_HIDE_APP_LABELS = false
 
         val ICON_PACK = stringPreferencesKey("icon-pack")
-        const val DEFAULT_ICON_PACK = ""
+        const val DEFAULT_ICON_PACK = SettingsValues.IconPack.SYSTEM
     }
 }

@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.onboarding.composables
+package com.whiskersapps.clawlauncher.ui.screens.onboarding.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -21,7 +21,8 @@ fun PagerDots(pagerState: PagerState) {
     Row(
         Modifier
             .wrapContentHeight()
-            .fillMaxWidth(),
+            .fillMaxWidth()
+            .padding(24.dp),
         horizontalArrangement = Arrangement.Center
     ) {
         repeat(pagerState.pageCount) { index ->

@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.onboarding
+package com.whiskersapps.clawlauncher.ui.screens.onboarding
 
 import android.os.Bundle
 import androidx.activity.ComponentActivity
@@ -14,10 +14,13 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
-import com.whiskersapps.clawlauncher.onboarding.composables.PagerDots
-import com.whiskersapps.clawlauncher.onboarding.select_engine_screen.SelectEngineScreenRoot
-import com.whiskersapps.clawlauncher.onboarding.welcome_screen.WelcomeScreenRoot
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.theme.ClawLauncherTheme
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.composables.PagerDots
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.finish.FinishOnboardingScreenRoot
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.SelectEngineScreenRoot
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_theme.SelectThemeScreenRoot
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.welcome.WelcomeScreen
 import org.koin.androidx.viewmodel.ext.android.getViewModel
 
 class OnBoardingActivity : ComponentActivity() {
@@ -32,7 +35,8 @@ class OnBoardingActivity : ComponentActivity() {
             if (settings != null) {
                 ClawLauncherTheme(settings) {
                     val pagerState = rememberPagerState(
-                        pageCount = { 3 }
+                        pageCount = { 4 },
+                        initialPage = 0
                     )
 
                     Column(
@@ -47,13 +51,23 @@ class OnBoardingActivity : ComponentActivity() {
                                 .fillMaxHeight()
                                 .weight(1f, fill = true)
                         ) { page ->
-                            when (page) {
-                                0 -> {
-                                    WelcomeScreenRoot(pagerState)
-                                }
+                            CenteredLayout {
+                                when (page) {
+                                    0 -> {
+                                        WelcomeScreen()
+                                    }
 
-                                1 -> {
-                                    SelectEngineScreenRoot(pagerState)
+                                    1 -> {
+                                        SelectEngineScreenRoot()
+                                    }
+
+                                    2 -> {
+                                        SelectThemeScreenRoot()
+                                    }
+
+                                    3 -> {
+                                        FinishOnboardingScreenRoot(pagerState)
+                                    }
                                 }
                             }
                         }

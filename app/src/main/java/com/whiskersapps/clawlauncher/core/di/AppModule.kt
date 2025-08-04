@@ -13,8 +13,6 @@ import com.whiskersapps.clawlauncher.launcher.foldable.FoldableRepo
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenVM
 import com.whiskersapps.clawlauncher.launcher.search.SearchScreenVM
 import com.whiskersapps.clawlauncher.launcher.search_engines.SearchEnginesRepo
-import com.whiskersapps.clawlauncher.onboarding.OnBoardingActivityVM
-import com.whiskersapps.clawlauncher.onboarding.select_engine_screen.SelectEngineScreenVM
 import com.whiskersapps.clawlauncher.settings.SettingsActivityVM
 import com.whiskersapps.clawlauncher.settings.SettingsScreenVM
 import com.whiskersapps.clawlauncher.settings.about.AboutScreenVM
@@ -26,6 +24,10 @@ import com.whiskersapps.clawlauncher.settings.lock.LockScreenSettingsScreenVM
 import com.whiskersapps.clawlauncher.settings.search_engines.SearchEnginesScreenVM
 import com.whiskersapps.clawlauncher.settings.security.SecuritySettingsScreenVM
 import com.whiskersapps.clawlauncher.settings.style.StyleSettingsScreenVM
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.OnBoardingActivityVM
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.finish.FinishOnboardingScreenVM
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.SelectEngineScreenVM
+import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_theme.SelectThemeScreenVM
 import org.koin.core.module.dsl.viewModel
 import org.koin.dsl.module
 
@@ -67,11 +69,19 @@ val appModule = module {
     // ======================================================
 
     viewModel<OnBoardingActivityVM> {
-        OnBoardingActivityVM(get(), get())
+        OnBoardingActivityVM(get())
     }
 
     viewModel<SelectEngineScreenVM> {
         SelectEngineScreenVM(get(), get())
+    }
+
+    viewModel<SelectThemeScreenVM> {
+        SelectThemeScreenVM(get())
+    }
+
+    viewModel<FinishOnboardingScreenVM> {
+        FinishOnboardingScreenVM(get())
     }
 
     viewModel<LauncherActivityVM> {

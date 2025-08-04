@@ -27,11 +27,11 @@ import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
 import com.whiskersapps.clawlauncher.launcher.LauncherScreenState.Loaded
 import com.whiskersapps.clawlauncher.launcher.LauncherScreenState.Loading
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenRoot
 import com.whiskersapps.clawlauncher.launcher.composables.LoadingCat
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenRoot
-import com.whiskersapps.clawlauncher.shared.utils.OnActivityPaused
-import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenRoot
 import com.whiskersapps.clawlauncher.launcher.search.SearchScreenRoot
+import com.whiskersapps.clawlauncher.shared.utils.OnActivityPaused
 import com.whiskersapps.clawlauncher.shared.view.theme.useDarkTheme
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
@@ -64,7 +64,7 @@ fun LauncherScreen(
             val pagerState =
                 rememberPagerState(pageCount = { if (settings.disableAppsScreen) 1 else 2 })
             val view = LocalView.current
-            val useDarkTheme = useDarkTheme(settings.darkMode)
+            val useDarkTheme = useDarkTheme(settings.theme)
             val window = (view.context as Activity).window
 
             fun reset() {

@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.onboarding.welcome_screen.composables
+package com.whiskersapps.clawlauncher.ui.screens.onboarding.welcome.composables
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column

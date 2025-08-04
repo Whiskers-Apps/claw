@@ -1,9 +1,9 @@
-package com.whiskersapps.clawlauncher.onboarding.select_engine_screen
+package com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine
 
 import com.whiskersapps.clawlauncher.shared.model.SearchEngine
 
 data class SelectEngineScreenState(
     val loading: Boolean = true,
     val searchEngines: List<SearchEngine> = emptyList(),
-    val selectedEngine: SearchEngine? = null
+    val defaultEngine: SearchEngine? = null
 )

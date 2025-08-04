@@ -43,7 +43,7 @@
             android:theme="@style/Theme.ClawLauncher"
             android:windowSoftInputMode="adjustResize" />
         <activity
-            android:name=".onboarding.OnBoardingActivity"
+            android:name=".ui.screens.onboarding.OnBoardingActivity"
             android:exported="false"
             android:label="@string/title_activity_on_boarding"
             android:theme="@style/Theme.ClawLauncher"

@@ -39,9 +39,9 @@ class StyleSettingsScreenVM(
                     it.copy(
                         loading = false,
                         loadingSettings = false,
-                        darkMode = settings.darkMode,
-                        theme = settings.theme,
-                        darkTheme = settings.darkTheme,
+                        darkMode = settings.theme,
+                        theme = settings.palette,
+                        darkTheme = settings.darkPalette,
                         iconPack = iconPack,
                         iconPacks = iconPacks
                     )
@@ -91,7 +91,7 @@ class StyleSettingsScreenVM(
 
     private fun setDarkMode(darkMode: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.setDarkMode(darkMode)
+            settingsRepo.setTheme(darkMode)
             setShowDarkModeDialog(false)
         }
     }
@@ -122,13 +122,13 @@ class StyleSettingsScreenVM(
 
     private fun setTheme(theme: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.setTheme(theme)
+            settingsRepo.setPalette(theme)
         }
     }
 
     private fun setDarkTheme(theme: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            settingsRepo.setDarkTheme(theme)
+            settingsRepo.setDarkPalette(theme)
         }
     }
 

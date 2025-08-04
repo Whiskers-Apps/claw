@@ -76,11 +76,11 @@ class SettingsRepo(
                 appsSearchBarRadius = preferences[Settings.APPS_SEARCH_BAR_RADIUS]
                     ?: Settings.DEFAULT_APPS_SEARCH_BAR_RADIUS,
 
-                darkMode = preferences[Settings.DARK_MODE] ?: Settings.DEFAULT_DARK_MODE,
-
                 theme = preferences[Settings.THEME] ?: Settings.DEFAULT_THEME,
 
-                darkTheme = preferences[Settings.DARK_THEME] ?: Settings.DEFAULT_DARK_THEME,
+                palette = preferences[Settings.PALETTE] ?: Settings.DEFAULT_PALETTE,
+
+                darkPalette = preferences[Settings.DARK_PALETTE] ?: Settings.DEFAULT_DARK_PALETTE,
 
                 hiddenApps = getHiddenApps(),
 
@@ -120,66 +120,96 @@ class SettingsRepo(
         }
     }
 
-    suspend fun setAppsViewType(appsViewType: String) {
-        dataStore.edit { it[Settings.APPS_VIEW_TYPE] = appsViewType }
-    }
-
-    suspend fun setPortraitCols(cols: Int) {
-        dataStore.edit { it[Settings.PORTRAIT_COLS] = cols }
-    }
-
-    suspend fun setLandscapeCols(cols: Int) {
-        dataStore.edit { it[Settings.LANDSCAPE_COLS] = cols }
-    }
-
-    suspend fun setUnfoldedCols(cols: Int) {
-        dataStore.edit { it[Settings.UNFOLDED_PORTRAIT_COLS] = cols }
-    }
-
-    suspend fun setUnfoldedLandscapeCols(cols: Int) {
-        dataStore.edit { it[Settings.UNFOLDED_LANDSCAPE_COLS] = cols }
-    }
-
-    suspend fun setShowHomeSearchBar(show: Boolean) {
-        dataStore.edit { it[Settings.SHOW_HOME_SEARCH_BAR] = show }
-    }
-
-    suspend fun setShowHomeSearchBarPlaceholder(show: Boolean) {
-        dataStore.edit {
-            it[Settings.SHOW_HOME_SEARCH_BAR_PLACEHOLDER] = show
+    fun setAppsViewType(appsViewType: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.APPS_VIEW_TYPE] = appsViewType }
         }
     }
 
-    suspend fun setHomeSearchBarRadius(radius: Int) {
-        dataStore.edit { it[Settings.HOME_SEARCH_BAR_RADIUS] = radius }
+    fun setPortraitCols(cols: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.PORTRAIT_COLS] = cols }
+        }
     }
 
-    suspend fun setShowAppsSearchBar(showAppsSearchBar: Boolean) {
-        dataStore.edit { it[Settings.SHOW_APPS_SEARCH_BAR] = showAppsSearchBar }
+    fun setLandscapeCols(cols: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.LANDSCAPE_COLS] = cols }
+        }
     }
 
-    suspend fun setAppsSearchBarPosition(appsSearchBarPosition: String) {
-        dataStore.edit { it[Settings.APPS_SEARCH_BAR_POSITION] = appsSearchBarPosition }
+    fun setUnfoldedCols(cols: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.UNFOLDED_PORTRAIT_COLS] = cols }
+        }
     }
 
-    suspend fun setShowAppsSearchBarPlaceholder(show: Boolean) {
-        dataStore.edit { it[Settings.SHOW_APPS_SEARCH_BAR_PLACEHOLDER] = show }
+    fun setUnfoldedLandscapeCols(cols: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.UNFOLDED_LANDSCAPE_COLS] = cols }
+        }
     }
 
-    suspend fun setAppsSearchBarRadius(radius: Int) {
-        dataStore.edit { it[Settings.APPS_SEARCH_BAR_RADIUS] = radius }
+    fun setShowHomeSearchBar(show: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SHOW_HOME_SEARCH_BAR] = show }
+        }
     }
 
-    suspend fun setDarkMode(darkMode: String) {
-        dataStore.edit { it[Settings.DARK_MODE] = darkMode }
+    fun setShowHomeSearchBarPlaceholder(show: Boolean) {
+        ioScope.launch {
+            dataStore.edit {
+                it[Settings.SHOW_HOME_SEARCH_BAR_PLACEHOLDER] = show
+            }
+        }
     }
 
-    suspend fun setTheme(theme: String) {
-        dataStore.edit { it[Settings.THEME] = theme }
+    fun setHomeSearchBarRadius(radius: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.HOME_SEARCH_BAR_RADIUS] = radius }
+        }
     }
 
-    suspend fun setDarkTheme(theme: String) {
-        dataStore.edit { it[Settings.DARK_THEME] = theme }
+    fun setShowAppsSearchBar(showAppsSearchBar: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SHOW_APPS_SEARCH_BAR] = showAppsSearchBar }
+        }
+    }
+
+    fun setAppsSearchBarPosition(appsSearchBarPosition: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.APPS_SEARCH_BAR_POSITION] = appsSearchBarPosition }
+        }
+    }
+
+    fun setShowAppsSearchBarPlaceholder(show: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SHOW_APPS_SEARCH_BAR_PLACEHOLDER] = show }
+        }
+    }
+
+    fun setAppsSearchBarRadius(radius: Int) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.APPS_SEARCH_BAR_RADIUS] = radius }
+        }
+    }
+
+    fun setTheme(theme: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.THEME] = theme }
+        }
+    }
+
+    fun setPalette(palette: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.PALETTE] = palette }
+        }
+    }
+
+    fun setDarkPalette(palette: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.DARK_PALETTE] = palette }
+        }
     }
 
     private fun getHiddenApps(): List<String> {
@@ -228,35 +258,51 @@ class SettingsRepo(
 //        _settings.update { it.copy(secureApps = apps) }
     }
 
-    suspend fun setSwipeUpToSearch(swipeUp: Boolean) {
-        dataStore.edit { it[Settings.SWIPE_UP_TO_SEARCH] = swipeUp }
+    fun setSwipeUpToSearch(swipeUp: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SWIPE_UP_TO_SEARCH] = swipeUp }
+        }
     }
 
-    suspend fun setDisableAppsScreen(disable: Boolean) {
-        dataStore.edit { it[Settings.DISABLE_APPS_SCREEN] = disable }
+    fun setDisableAppsScreen(disable: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.DISABLE_APPS_SCREEN] = disable }
+        }
     }
 
-    suspend fun setTintClock(tint: Boolean) {
-        dataStore.edit { it[Settings.TINT_CLOCK] = tint }
+    fun setTintClock(tint: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.TINT_CLOCK] = tint }
+        }
     }
 
-    suspend fun setSplitList(split: Boolean) {
-        dataStore.edit { it[Settings.SPLIT_LIST_VIEW] = split }
+    fun setSplitList(split: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.SPLIT_LIST_VIEW] = split }
+        }
     }
 
-    suspend fun setClockPlacement(placement: String) {
-        dataStore.edit { it[Settings.CLOCK_PLACEMENT] = placement }
+    fun setClockPlacement(placement: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.CLOCK_PLACEMENT] = placement }
+        }
     }
 
-    suspend fun setPillShapeClock(pill: Boolean) {
-        dataStore.edit { it[Settings.PILL_SHAPE_CLOCK] = pill }
+    fun setPillShapeClock(pill: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.PILL_SHAPE_CLOCK] = pill }
+        }
     }
 
-    suspend fun setHideAppLabels(hide: Boolean) {
-        dataStore.edit { it[Settings.HIDE_APP_LABELS] = hide }
+    fun setHideAppLabels(hide: Boolean) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.HIDE_APP_LABELS] = hide }
+        }
     }
 
-    suspend fun setIconPack(packageName: String) {
-        dataStore.edit { it[Settings.ICON_PACK] = packageName }
+    fun setIconPack(packageName: String) {
+        ioScope.launch {
+            dataStore.edit { it[Settings.ICON_PACK] = packageName }
+        }
     }
 }

@@ -1,8 +1,6 @@
 package com.whiskersapps.clawlauncher.launcher.home
 
-import com.whiskersapps.clawlauncher.shared.model.Settings
 import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_CLOCK_PLACEMENT
-import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_DARK_MODE
 import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_HOME_SEARCH_BAR_RADIUS
 import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_PILL_SHAPE_CLOCK
 import com.whiskersapps.clawlauncher.shared.model.Settings.Companion.DEFAULT_SHOW_HOME_SEARCH_BAR

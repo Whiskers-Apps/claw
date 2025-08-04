@@ -155,4 +155,10 @@
     <string name="AppsSettings_search_bar_position_description">The search bar position</string>
     <string name="HomeSettings_pill_shape">Pill Shape</string>
     <string name="HomeSettings_pill_shape_description">Show the clock inside a card</string>
+    <string name="SelectThemeScreen_title">Theme</string>
+    <string name="SelectThemeScreen_description">Select your preferred theme</string>
+    <string name="SelectThemeScreen_color_palette_title">Dark Color Palette</string>
+    <string name="SelectThemeScreen_color_palette_description">This color palette is used when using a dark theme</string>
+    <string name="SelectThemeScreen_light_color_palette_title">Light Color Palette</string>
+    <string name="SelectThemeScreen_light_color_palette_description">This color palette is used when using a light theme</string>
 </resources>

@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.onboarding.select_engine_screen
+package com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
@@ -27,7 +27,7 @@ class SelectEngineScreenVM(
                     it.copy(
                         loading = false,
                         searchEngines = searchEngines,
-                        selectedEngine = searchEnginesRepo.getDefaultEngine()
+                        defaultEngine = searchEnginesRepo.getDefaultEngine()
                     )
                 }
             }
