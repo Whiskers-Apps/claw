@@ -1,1 +1,0 @@
-package com.whiskersapps.clawlauncher.shared.view.theme

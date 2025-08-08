@@ -15,10 +15,39 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
+import com.whiskersapps.clawlauncher.data.settings.SettingsValues
 import com.whiskersapps.clawlauncher.shared.model.Settings
 import com.whiskersapps.clawlauncher.shared.utils.isAtLeastAndroid12
+import com.whiskersapps.clawlauncher.ui.common.palette.LynxPalettes
+import com.whiskersapps.clawlauncher.ui.common.palette.PantherPalettes
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import org.monocode.lib.ThemeId
+import org.monocode.lib.getMaterialMonoCode
+
+fun getPalette(palette: String): ColorScheme {
+    return when (palette) {
+        SettingsValues.Palette.LYNX_RED -> getMaterialMonoCode(ThemeId.LynxRed)
+        SettingsValues.Palette.LYNX_ORANGE -> getMaterialMonoCode(ThemeId.LynxOrange)
+        SettingsValues.Palette.LYNX_YELLOW -> getMaterialMonoCode(ThemeId.LynxYellow)
+        SettingsValues.Palette.LYNX_GREEN -> getMaterialMonoCode(ThemeId.LynxGreen)
+        SettingsValues.Palette.LYNX_NEON_GREEN -> getMaterialMonoCode(ThemeId.LynxNeonGreen)
+        SettingsValues.Palette.LYNX_BLUE -> getMaterialMonoCode(ThemeId.LynxBlue)
+        SettingsValues.Palette.LYNX_CYAN -> getMaterialMonoCode(ThemeId.LynxCyan)
+        SettingsValues.Palette.LYNX_PURPLE -> getMaterialMonoCode(ThemeId.LynxPurple)
+        SettingsValues.Palette.LYNX_PINK -> getMaterialMonoCode(ThemeId.LynxPink)
+        SettingsValues.DarkPalette.PANTHER_RED -> getMaterialMonoCode(ThemeId.PantherRed)
+        SettingsValues.DarkPalette.PANTHER_ORANGE -> getMaterialMonoCode(ThemeId.PantherOrange)
+        SettingsValues.DarkPalette.PANTHER_YELLOW -> getMaterialMonoCode(ThemeId.PantherYellow)
+        SettingsValues.DarkPalette.PANTHER_GREEN -> getMaterialMonoCode(ThemeId.PantherGreen)
+        SettingsValues.DarkPalette.PANTHER_NEON_GREEN -> getMaterialMonoCode(ThemeId.PantherNeonGreen)
+        SettingsValues.DarkPalette.PANTHER_BLUE -> getMaterialMonoCode(ThemeId.PantherBlue)
+        SettingsValues.DarkPalette.PANTHER_CYAN -> getMaterialMonoCode(ThemeId.PantherCyan)
+        SettingsValues.DarkPalette.PANTHER_PURPLE -> getMaterialMonoCode(ThemeId.PantherPurple)
+        SettingsValues.DarkPalette.PANTHER_PINK -> getMaterialMonoCode(ThemeId.PantherPink)
+        else -> throw IllegalArgumentException()
+    }
+}
 
 @Composable
 fun ClawLauncherTheme(
@@ -49,12 +78,15 @@ fun ClawLauncherTheme(
         }
     }
 
-
     MaterialTheme(
         colorScheme = if (useMonet && isAtLeastAndroid12() && !useDarkTheme) {
             dynamicLightColorScheme(context)
         } else if (useDarkMonet && isAtLeastAndroid12() && useDarkTheme) {
             dynamicDarkColorScheme(context)
+        } else if (!useDarkTheme && LynxPalettes.contains(settings.palette)) {
+            getPalette(settings.palette)
+        } else if (useDarkTheme && PantherPalettes.contains(settings.darkPalette)) {
+            getPalette(settings.darkPalette)
         } else {
             if (useDarkTheme)
                 getDarkColorScheme(id = settings.darkPalette)

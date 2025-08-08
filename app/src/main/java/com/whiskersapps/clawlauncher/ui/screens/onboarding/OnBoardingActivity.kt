@@ -36,7 +36,7 @@ class OnBoardingActivity : ComponentActivity() {
                 ClawLauncherTheme(settings) {
                     val pagerState = rememberPagerState(
                         pageCount = { 4 },
-                        initialPage = 0
+                        initialPage = 2
                     )
 
                     Column(

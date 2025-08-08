@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.ui.common
+package com.whiskersapps.clawlauncher.ui.common.composables
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -16,13 +16,15 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.unit.dp
 import com.whiskersapps.clawlauncher.shared.view.theme.REGULAR_LABEL_STYLE
 
 enum class CardShape {
     Top,
     Middle,
-    Bottom
+    Bottom,
+    None
 }
 
 @Composable
@@ -49,6 +51,8 @@ fun Modifier.cardShape(shape: CardShape): Modifier {
                 bottomEnd = 16.dp
             )
         )
+
+        CardShape.None -> this.clip(RectangleShape)
     }
 }
 
@@ -78,7 +82,7 @@ fun RadioCard(
             .cardShape(cardShape)
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .clickable { onSelect() }
-            .padding(8.dp),
+            .padding(start = 16.dp, top = 8.dp, bottom = 8.dp, end = 8.dp),
         verticalAlignment = Alignment.CenterVertically
     ) {
         icon?.let {

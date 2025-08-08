@@ -7,100 +7,56 @@ import com.whiskersapps.clawlauncher.data.settings.SettingsValues
 import com.whiskersapps.clawlauncher.shared.utils.isAtLeastAndroid12
 
 data class Settings(
-    /** Check if initial setup was completed*/
     val setupCompleted: Boolean = DEFAULT_SETUP_COMPLETED,
 
-    /**
-     * The view type on the apps screen
-     *
-     * Possible values: "list", "grid"
-     */
     val appsViewType: String = DEFAULT_APPS_VIEW_TYPE,
 
-    /** The amount of app columns to show when the device is in portrait. It affects search results columns too */
     val portraitCols: Int = DEFAULT_PORTRAIT_COLS,
 
-    /** The amount of app columns to show when the device is in landscape. It affects search results columns too */
     val landscapeCols: Int = DEFAULT_LANDSCAPE_COLS,
 
-    /** The amount of app columns to show when the device is unfolded and in portrait. It affects search results columns too */
     val unfoldedPortraitCols: Int = DEFAULT_UNFOLDED_PORTRAIT_COLS,
 
-    /** The amount of app columns to show when the device is unfolded and in landscape. It affects search results columns too */
     val unfoldedLandscapeCols: Int = DEFAULT_UNFOLDED_LANDSCAPE_COLS,
 
-    /** Show the home search bar */
     val showHomeSearchBar: Boolean = DEFAULT_SHOW_HOME_SEARCH_BAR,
 
-    /** Show the placeholder on the home screen */
     val showHomeSearchBarPlaceholder: Boolean = DEFAULT_SHOW_HOME_SEARCH_BAR_PLACEHOLDER,
 
-    /** The search bar radius on the home screen */
     val homeSearchBarRadius: Int = DEFAULT_HOME_SEARCH_BAR_RADIUS,
 
-    /** Show the search bar on the apps screen */
     val showAppsSearchBar: Boolean = DEFAULT_SHOW_APPS_SEARCH_BAR,
 
-    /** Show the search placeholder on the apps search bar */
     val showAppsSearchBarPlaceholder: Boolean = DEFAULT_SHOW_APPS_SEARCH_BAR_PLACEHOLDER,
 
-    /** The search bar position in the apps screen
-     *
-     * Possible values: **"top"**, **"bottom"** */
     val appsSearchBarPosition: String = DEFAULT_APPS_SEARCH_BAR_POSITION,
 
-    /** The search bar radius on the apps screen */
     val appsSearchBarRadius: Int = DEFAULT_APPS_SEARCH_BAR_RADIUS,
 
-    /**
-     * The selected dark mode. It will override the device mode in case it's not system
-     *
-     * Possible values: **"system"**, **"light"**, **"dark"** */
     val theme: String = DEFAULT_THEME,
 
-    /**
-     * The selected light theme.
-     *
-     * Possible values: **"monet"**, "tiger-{accent}""*/
     val palette: String = DEFAULT_PALETTE,
 
-    /**
-     * The selected dark theme.
-     *
-     * Possible values: "monet", "panther-{accent}"" */
     val darkPalette: String = DEFAULT_DARK_PALETTE,
 
-    /** A list of apps package names that will be hidden on search and apps screen */
     val hiddenApps: List<String> = emptyList(),
 
-    /** A list of apps package names that are required to open with fingerprint */
     val secureApps: List<String> = emptyList(),
 
-    /** Enable swipe to search on the home screen */
     val swipeUpToSearch: Boolean = DEFAULT_SWIPE_UP_TO_SEARCH,
 
-    /** Disable the all apps screen */
     val disableAppsScreen: Boolean = DEFAULT_DISABLE_APPS_SCREEN,
 
-    /** Tint the home screen clock with accent color */
     val tintClock: Boolean = DEFAULT_TINT_CLOCK,
 
-    /** Split the apps list view in two on bigger screens */
     val splitListView: Boolean = DEFAULT_SPLIT_LIST_VIEW,
 
-    /**
-     * The clock placement in the home screen.
-     *
-     * Possible values: **"top"**, **"center"** */
     val clockPlacement: String = DEFAULT_CLOCK_PLACEMENT,
 
-    /** Show the clock as a card in the home screen */
     val pillShapeClock: Boolean = DEFAULT_PILL_SHAPE_CLOCK,
 
-    /** Hide app labels on the apps screen */
     val hideAppLabels: Boolean = DEFAULT_HIDE_APP_LABELS,
 
-    /** The selected icon pack */
     val iconPack: String = DEFAULT_ICON_PACK
 ) {
     companion object {
@@ -150,11 +106,11 @@ data class Settings(
 
         val PALETTE = stringPreferencesKey("palette")
         val DEFAULT_PALETTE =
-            if (isAtLeastAndroid12()) SettingsValues.Palette.MONET else SettingsValues.Palette.LYNX
+            if (isAtLeastAndroid12()) SettingsValues.Palette.MONET else SettingsValues.Palette.LYNX_YELLOW
 
         val DARK_PALETTE = stringPreferencesKey("dark-palette")
         val DEFAULT_DARK_PALETTE =
-            if (isAtLeastAndroid12()) SettingsValues.DarkPalette.MONET else SettingsValues.DarkPalette.PANTHER
+            if (isAtLeastAndroid12()) SettingsValues.DarkPalette.MONET else SettingsValues.DarkPalette.PANTHER_YELLOW
 
         val SWIPE_UP_TO_SEARCH = booleanPreferencesKey("swipe-up-to-search")
         const val DEFAULT_SWIPE_UP_TO_SEARCH = true

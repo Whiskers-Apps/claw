@@ -16,8 +16,11 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.whiskersapps.clawlauncher.R
 import com.whiskersapps.clawlauncher.data.settings.SettingsValues
-import com.whiskersapps.clawlauncher.ui.common.CardShape
-import com.whiskersapps.clawlauncher.ui.common.RadioCard
+import com.whiskersapps.clawlauncher.ui.common.composables.CardShape
+import com.whiskersapps.clawlauncher.ui.common.composables.RadioCard
+import com.whiskersapps.clawlauncher.ui.common.composables.ThemeList
+import com.whiskersapps.clawlauncher.ui.common.palette.LynxPalettes
+import com.whiskersapps.clawlauncher.ui.common.palette.PantherPalettes
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -106,12 +109,13 @@ fun SelectThemeScreen(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            RadioCard(
-                title = "MonoCode Lynx",
-                selected = state.palette == SettingsValues.Palette.LYNX,
+            ThemeList(
+                title = "Lynx",
+                list = LynxPalettes,
+                selectedPalette = state.palette,
                 cardShape = CardShape.Bottom
-            ) {
-                onAction(SelectThemeScreenAction.PaletteSelect(SettingsValues.Palette.LYNX))
+            ) { palette ->
+                onAction(SelectThemeScreenAction.PaletteSelect(palette))
             }
 
             Spacer(modifier = Modifier.height(32.dp))
@@ -140,12 +144,13 @@ fun SelectThemeScreen(
 
             Spacer(modifier = Modifier.height(4.dp))
 
-            RadioCard(
-                title = "MonoCode Panther",
-                selected = state.darkPalette == SettingsValues.DarkPalette.PANTHER,
+            ThemeList(
+                title = "Panther",
+                list = PantherPalettes,
+                selectedPalette = state.darkPalette,
                 cardShape = CardShape.Bottom
-            ) {
-                onAction(SelectThemeScreenAction.DarkPaletteSelect(SettingsValues.DarkPalette.PANTHER))
+            ) { palette ->
+                onAction(SelectThemeScreenAction.DarkPaletteSelect(palette))
             }
         }
     }

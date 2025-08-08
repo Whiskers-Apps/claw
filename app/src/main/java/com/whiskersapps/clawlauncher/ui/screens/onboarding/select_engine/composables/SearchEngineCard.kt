@@ -15,8 +15,8 @@ import coil.compose.SubcomposeAsyncImageContent
 import com.whiskersapps.clawlauncher.R
 import com.whiskersapps.clawlauncher.shared.utils.getCachedImageRequest
 import com.whiskersapps.clawlauncher.shared.utils.getFaviconUrl
-import com.whiskersapps.clawlauncher.ui.common.CardShape
-import com.whiskersapps.clawlauncher.ui.common.RadioCard
+import com.whiskersapps.clawlauncher.ui.common.composables.CardShape
+import com.whiskersapps.clawlauncher.ui.common.composables.RadioCard
 
 @Composable
 fun SearchEngineCard(
