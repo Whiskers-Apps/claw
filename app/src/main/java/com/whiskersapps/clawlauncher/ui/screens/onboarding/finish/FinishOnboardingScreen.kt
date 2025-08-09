@@ -13,7 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import com.whiskersapps.clawlauncher.launcher.LauncherActivity
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivity
 import org.koin.androidx.compose.koinViewModel
 
 @Composable

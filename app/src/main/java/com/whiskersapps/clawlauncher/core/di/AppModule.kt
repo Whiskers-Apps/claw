@@ -5,8 +5,6 @@ import com.whiskersapps.clawlauncher.bookmarks.BookmarksShareScreenVM
 import com.whiskersapps.clawlauncher.bookmarks.di.BookmarksRepo
 import com.whiskersapps.clawlauncher.core.db.getDB
 import com.whiskersapps.clawlauncher.icon_packs.IconPacksRepo
-import com.whiskersapps.clawlauncher.launcher.LauncherActivityVM
-import com.whiskersapps.clawlauncher.launcher.LauncherScreenVM
 import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenVM
 import com.whiskersapps.clawlauncher.launcher.apps.di.AppsRepo
 import com.whiskersapps.clawlauncher.launcher.foldable.FoldableRepo
@@ -24,6 +22,8 @@ import com.whiskersapps.clawlauncher.settings.lock.LockScreenSettingsScreenVM
 import com.whiskersapps.clawlauncher.settings.search_engines.SearchEnginesScreenVM
 import com.whiskersapps.clawlauncher.settings.security.SecuritySettingsScreenVM
 import com.whiskersapps.clawlauncher.settings.style.StyleSettingsScreenVM
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivityVM
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherScreenVM
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.OnBoardingActivityVM
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.finish.FinishOnboardingScreenVM
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.SelectEngineScreenVM

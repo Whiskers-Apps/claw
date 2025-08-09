@@ -3,8 +3,8 @@ package com.whiskersapps.clawlauncher.core
 import android.content.Intent
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.whiskersapps.clawlauncher.launcher.LauncherActivity
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivity
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.OnBoardingActivity
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers

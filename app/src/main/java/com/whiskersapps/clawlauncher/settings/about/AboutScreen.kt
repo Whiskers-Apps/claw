@@ -7,7 +7,6 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.material3.Icon
@@ -26,7 +25,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.whiskersapps.clawlauncher.R
-import com.whiskersapps.clawlauncher.shared.view.composables.ContentColumn
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
 import com.whiskersapps.clawlauncher.shared.view.composables.settingPadding
 import com.whiskersapps.clawlauncher.shared.view.theme.Typography
@@ -58,12 +57,11 @@ fun AboutScreen(
         context.packageManager.getPackageInfo(context.packageName, 0).versionName
     }
 
-    ContentColumn(
-        useSystemBarsPadding = true,
-        navigationBar = {
-            NavBar(navigateBack = { onAction(AboutScreenAction.NavigateBack) })
-        }
-    ) {
+    CenteredLayout(sidePadded = false) {
+        NavBar(navigateBack = { onAction(AboutScreenAction.NavigateBack) })
+
+        Spacer(modifier = Modifier.height(16.dp))
+
         Column(
             modifier = Modifier.fillMaxWidth(),
             verticalArrangement = Arrangement.Center,
@@ -155,6 +153,5 @@ fun AboutScreen(
                 contentDescription = null
             )
         }
-
     }
 }

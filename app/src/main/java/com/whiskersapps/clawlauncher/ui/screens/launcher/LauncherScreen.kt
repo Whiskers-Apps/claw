@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.launcher
+package com.whiskersapps.clawlauncher.ui.screens.launcher
 
 import android.app.Activity
 import androidx.activity.compose.BackHandler
@@ -25,14 +25,14 @@ import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import androidx.core.view.WindowCompat
-import com.whiskersapps.clawlauncher.launcher.LauncherScreenState.Loaded
-import com.whiskersapps.clawlauncher.launcher.LauncherScreenState.Loading
 import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenRoot
 import com.whiskersapps.clawlauncher.launcher.composables.LoadingCat
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenRoot
 import com.whiskersapps.clawlauncher.launcher.search.SearchScreenRoot
 import com.whiskersapps.clawlauncher.shared.utils.OnActivityPaused
 import com.whiskersapps.clawlauncher.shared.view.theme.useDarkTheme
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherScreenState.Loaded
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherScreenState.Loading
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel

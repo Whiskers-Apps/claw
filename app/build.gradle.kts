@@ -107,6 +107,7 @@ dependencies {
     implementation(libs.koin.androidx.compose)
     implementation(libs.koin.androidx.compose.navigation)
 
+    // Droid Icons (Icon Packs)
     implementation(libs.droid.icons)
 
     // Room DB

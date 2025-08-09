@@ -6,6 +6,17 @@ import android.content.pm.PackageManager
 import android.provider.Settings
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateBack
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToAbout
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToAppsSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToBookmarksSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToHomeSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToLockScreenSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToSearchEnginesSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToSecuritySettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.NavigateToStyleSettings
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.SetDefaultLauncher
+import com.whiskersapps.clawlauncher.settings.SettingsScreenAction.WorkspacesClick
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -39,16 +50,17 @@ class SettingsScreenVM constructor(
 
     fun onAction(action: SettingsScreenAction) {
         when (action) {
-            SettingsScreenAction.NavigateBack -> {}
-            SettingsScreenAction.NavigateToAbout -> {}
-            SettingsScreenAction.NavigateToAppsSettings -> {}
-            SettingsScreenAction.NavigateToBookmarksSettings -> {}
-            SettingsScreenAction.NavigateToHomeSettings -> {}
-            SettingsScreenAction.NavigateToSearchEnginesSettings -> {}
-            SettingsScreenAction.NavigateToStyleSettings -> {}
-            SettingsScreenAction.NavigateToSecuritySettings -> {}
-            SettingsScreenAction.SetDefaultLauncher -> setDefaultLauncher()
-            SettingsScreenAction.NavigateToLockScreenSettings -> {}
+            NavigateBack -> {}
+            NavigateToAbout -> {}
+            NavigateToAppsSettings -> {}
+            NavigateToBookmarksSettings -> {}
+            NavigateToHomeSettings -> {}
+            NavigateToSearchEnginesSettings -> {}
+            NavigateToStyleSettings -> {}
+            NavigateToSecuritySettings -> {}
+            SetDefaultLauncher -> setDefaultLauncher()
+            NavigateToLockScreenSettings -> {}
+            WorkspacesClick -> {}
         }
     }
 

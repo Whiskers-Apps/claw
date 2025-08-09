@@ -18,8 +18,8 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.whiskersapps.clawlauncher.R
-import com.whiskersapps.clawlauncher.launcher.LauncherActivity
 import com.whiskersapps.clawlauncher.ui.common.composables.getCardShape
+import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivity
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.SelectEngineScreenAction.Finish
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.composables.SearchEngineCard
 import org.koin.androidx.compose.koinViewModel

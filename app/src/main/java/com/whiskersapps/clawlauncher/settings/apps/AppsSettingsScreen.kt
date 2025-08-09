@@ -17,7 +17,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.whiskersapps.clawlauncher.R
-import com.whiskersapps.clawlauncher.shared.view.composables.ContentColumn
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
 import com.whiskersapps.clawlauncher.shared.view.composables.SliderSetting
 import com.whiskersapps.clawlauncher.shared.view.composables.SwitchSetting
@@ -49,13 +49,10 @@ fun AppsSettingsScreen(
     vm: AppsSettingsScreenVM,
     state: AppsSettingsScreenState = vm.state.collectAsState().value
 ) {
-    ContentColumn(
-        useSystemBarsPadding = true,
-        navigationBar = {
-            NavBar(navigateBack = { onAction(AppsSettingsScreenAction.NavigateBack) })
-        },
-        loading = state.loading
-    ) {
+    CenteredLayout(sidePadded = false) {
+        NavBar(navigateBack = { onAction(AppsSettingsScreenAction.NavigateBack) })
+
+        Spacer(modifier = Modifier.height(16.dp))
 
         SwitchSetting(
             title = stringResource(R.string.AppsSettings_disable_apps_screen),
@@ -69,8 +66,6 @@ fun AppsSettingsScreen(
                 )
             }
         )
-
-
 
         Column(modifier = Modifier.settingPadding()) {
             Text(

@@ -92,7 +92,7 @@ class AppsRepo(
                         } ?: emptyList()
                 } catch (e: Exception) {
                     emptyList()
-                }
+                }.take(5)
 
                 App(
                     name = name,

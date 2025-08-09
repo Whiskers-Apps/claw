@@ -24,6 +24,7 @@ enum class CardShape {
     Top,
     Middle,
     Bottom,
+    Single,
     None
 }
 
@@ -52,13 +53,15 @@ fun Modifier.cardShape(shape: CardShape): Modifier {
             )
         )
 
+        CardShape.Single -> this.clip(RoundedCornerShape(16.dp))
+
         CardShape.None -> this.clip(RectangleShape)
     }
 }
 
 fun getCardShape(index: Int, listSize: Int): CardShape {
     return if (index == 0 && listSize == 1) {
-        CardShape.Middle
+        CardShape.Single
     } else if (index == 0) {
         CardShape.Top
     } else if (index + 1 == listSize) {

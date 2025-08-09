@@ -1,6 +1,5 @@
 package com.whiskersapps.clawlauncher.launcher.home
 
-import android.app.Activity
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
@@ -17,11 +16,8 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.statusBars
-import androidx.compose.foundation.layout.statusBarsPadding
 import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.layout.widthIn
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -29,31 +25,23 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.SheetState
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
-import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.drawWithContent
 import androidx.compose.ui.geometry.Offset
-import androidx.compose.ui.graphics.BlendMode
 import androidx.compose.ui.graphics.Brush
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.CompositingStrategy
 import androidx.compose.ui.graphics.Shadow
-import androidx.compose.ui.graphics.graphicsLayer
 import androidx.compose.ui.input.pointer.pointerInput
-import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.platform.LocalView
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import androidx.core.view.WindowCompat
 import com.whiskersapps.clawlauncher.R
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.ChangeWorkspaceClick
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.CloseLockScreenDialog
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.CloseMenuDialog
 import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnChangeWallpaper
@@ -98,7 +86,7 @@ fun HomeScreen(
     vm: HomeScreenVM
 ) {
     val state = vm.state.collectAsState().value
-    val barHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding()
+    val barHeight = WindowInsets.statusBars.asPaddingValues().calculateTopPadding() + 16.dp
 
     val textShadow = Shadow(
         Color.Black,
@@ -112,6 +100,9 @@ fun HomeScreen(
             },
             onOpenSettings = {
                 onAction(OnOpenSettings)
+            },
+            onChangeWorkspace = {
+                onAction(ChangeWorkspaceClick)
             },
             onDismiss = {
                 onAction(CloseMenuDialog)
@@ -226,8 +217,6 @@ fun HomeScreen(
                                 }
                             }
                         }
-
-
 
                         LockScreenDialog(
                             show = state.showLockScreenDialog,

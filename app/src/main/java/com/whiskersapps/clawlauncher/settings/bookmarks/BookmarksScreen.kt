@@ -37,8 +37,9 @@ import coil.compose.AsyncImage
 import com.whiskersapps.clawlauncher.R
 import com.whiskersapps.clawlauncher.shared.utils.getCachedImageRequest
 import com.whiskersapps.clawlauncher.shared.utils.getFaviconUrl
-import com.whiskersapps.clawlauncher.shared.view.composables.ContentColumn
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
+import com.whiskersapps.clawlauncher.shared.view.composables.sidePadding
 import com.whiskersapps.clawlauncher.shared.view.theme.Typography
 import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
@@ -74,26 +75,22 @@ fun BookmarksScreen(
         scope.launch { pagerState.animateScrollToPage(tabIndex) }
     }
 
-    ContentColumn(
-        useSystemBarsPadding = true,
-        navigationBar = {
-            NavBar(navigateBack = { onAction(BookmarksScreenAction.NavigateBack) }) {
-                if (!state.loading) {
-                    Text(
-                        modifier = Modifier.clickable {
-                            onAction(BookmarksScreenAction.OpenAddDialog(pagerState.currentPage))
-                        },
-                        text = stringResource(R.string.Add),
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+    CenteredLayout(sidePadded = false, scrollable = false) {
+        NavBar(navigateBack = { onAction(BookmarksScreenAction.NavigateBack) }) {
+            if (!state.loading) {
+                Text(
+                    modifier = Modifier.clickable {
+                        onAction(BookmarksScreenAction.OpenAddDialog(pagerState.currentPage))
+                    },
+                    text = stringResource(R.string.Add),
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
             }
-        },
-        loading = state.loading,
-        scrollable = false
-    ) {
+        }
+
         TabRow(
+            modifier = Modifier.sidePadding(),
             selectedTabIndex = pagerState.currentPage,
             containerColor = Color.Transparent,
         ) {

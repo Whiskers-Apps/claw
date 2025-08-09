@@ -37,6 +37,7 @@ fun getPaletteName(palette: String): String {
         SettingsValues.Palette.LYNX_BLUE -> "Lynx Blue"
         SettingsValues.Palette.LYNX_PURPLE -> "Lynx Purple"
         SettingsValues.Palette.LYNX_PINK -> "Lynx Pink"
+        SettingsValues.Palette.MONET -> "Material You"
         SettingsValues.DarkPalette.PANTHER_RED -> "Panther Red"
         SettingsValues.DarkPalette.PANTHER_ORANGE -> "Panther Orange"
         SettingsValues.DarkPalette.PANTHER_YELLOW -> "Panther Yellow"
@@ -46,6 +47,7 @@ fun getPaletteName(palette: String): String {
         SettingsValues.DarkPalette.PANTHER_BLUE -> "Panther Blue"
         SettingsValues.DarkPalette.PANTHER_PURPLE -> "Panther Purple"
         SettingsValues.DarkPalette.PANTHER_PINK -> "Panther Pink"
+        SettingsValues.DarkPalette.MONET -> "Material You"
         else -> {
             throw IllegalArgumentException("Palette Not Available")
         }

@@ -24,4 +24,6 @@ sealed interface HomeScreenAction {
     data object ShowLockScreenDialog : HomeScreenAction
 
     data object CloseLockScreenDialog : HomeScreenAction
+
+    data object ChangeWorkspaceClick : HomeScreenAction
 }

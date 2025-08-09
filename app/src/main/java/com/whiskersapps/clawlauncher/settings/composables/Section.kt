@@ -14,12 +14,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.draw.clip
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.unit.dp
 import com.whiskersapps.clawlauncher.shared.view.composables.WhiskersText
 import com.whiskersapps.clawlauncher.shared.view.theme.REGULAR_LABEL_STYLE
 import com.whiskersapps.clawlauncher.shared.view.theme.SMALL_LABEL_STYLE
+import com.whiskersapps.clawlauncher.ui.common.composables.CardShape
+import com.whiskersapps.clawlauncher.ui.common.composables.cardShape
 
 
 val topShape =
@@ -46,20 +47,13 @@ fun SettingsSection(
     icon: Int,
     title: String,
     description: String,
-    position: SectionPosition = SectionPosition.MIDDLE,
+    cardShape: CardShape,
     onClick: () -> Unit
 ) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clip(
-                when (position) {
-                    SectionPosition.TOP -> topShape
-                    SectionPosition.MIDDLE -> middleShape
-                    SectionPosition.BOTTOM -> bottomShape
-                    SectionPosition.SINGLE -> singleShape
-                }
-            )
+            .cardShape(cardShape)
             .background(MaterialTheme.colorScheme.surfaceVariant)
             .clickable { onClick() }
             .padding(16.dp),

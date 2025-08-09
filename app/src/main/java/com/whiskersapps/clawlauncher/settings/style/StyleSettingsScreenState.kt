@@ -11,8 +11,8 @@ data class StyleSettingsScreenState(
 
     // Settings
     val darkMode: String = Settings.DEFAULT_THEME,
-    val theme: String = Settings.DEFAULT_PALETTE,
-    val darkTheme: String = Settings.DEFAULT_DARK_PALETTE,
+    val palette: String = Settings.DEFAULT_PALETTE,
+    val darkPalette: String = Settings.DEFAULT_DARK_PALETTE,
     val iconPack: String = "",
     val iconPacks: List<App> = emptyList(),
 

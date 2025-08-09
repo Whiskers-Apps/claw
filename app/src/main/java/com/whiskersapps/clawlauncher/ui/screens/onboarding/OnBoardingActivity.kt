@@ -8,7 +8,6 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.systemBarsPadding
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
@@ -36,14 +35,13 @@ class OnBoardingActivity : ComponentActivity() {
                 ClawLauncherTheme(settings) {
                     val pagerState = rememberPagerState(
                         pageCount = { 4 },
-                        initialPage = 2
+                        initialPage = 0
                     )
 
                     Column(
                         modifier = Modifier
                             .fillMaxSize()
                             .background(MaterialTheme.colorScheme.background)
-                            .systemBarsPadding()
                     ) {
                         HorizontalPager(
                             state = pagerState,

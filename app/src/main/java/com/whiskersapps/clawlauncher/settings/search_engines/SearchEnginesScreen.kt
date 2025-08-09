@@ -29,7 +29,10 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.whiskersapps.clawlauncher.R
-import com.whiskersapps.clawlauncher.shared.view.composables.ContentColumn
+import com.whiskersapps.clawlauncher.settings.search_engines.SearchEnginesScreenAction.NavigateBack
+import com.whiskersapps.clawlauncher.settings.search_engines.SearchEnginesScreenAction.ShowAddEngineDialog
+import com.whiskersapps.clawlauncher.settings.search_engines.SearchEnginesScreenAction.ShowEditEngineDialog
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
 import com.whiskersapps.clawlauncher.shared.view.composables.sidePadding
 import com.whiskersapps.clawlauncher.shared.view.theme.Typography
@@ -41,11 +44,10 @@ fun SearchEnginesScreenRoot(
     navController: NavController,
     vm: SearchEnginesScreenVM = koinViewModel()
 ) {
-
     SearchEnginesScreen(
         onAction = { action ->
             when (action) {
-                SearchEnginesScreenAction.NavigateBack -> navController.navigateUp()
+                NavigateBack -> navController.navigateUp()
                 else -> vm.onAction(action)
             }
         },
@@ -56,30 +58,24 @@ fun SearchEnginesScreenRoot(
 @Composable
 fun SearchEnginesScreen(
     onAction: (SearchEnginesScreenAction) -> Unit,
-    vm: SearchEnginesScreenVM
+    vm: SearchEnginesScreenVM,
+    state: SearchEnginesScreenState = vm.state.collectAsState().value
 ) {
-
-    val state = vm.state.collectAsState().value
-
-    ContentColumn(
-        useSystemBarsPadding = true,
-        navigationBar = {
-            NavBar(navigateBack = { onAction(SearchEnginesScreenAction.NavigateBack) }) {
-                if (!state.loading) {
-                    Text(
-                        modifier = Modifier.clickable {
-                            onAction(SearchEnginesScreenAction.ShowAddEngineDialog)
-                        },
-                        text = stringResource(R.string.Add),
-                        color = MaterialTheme.colorScheme.primary,
-                        fontWeight = FontWeight.Bold
-                    )
-                }
+    CenteredLayout(sidePadded = false, scrollable = false) {
+        NavBar(navigateBack = { onAction(NavigateBack) }) {
+            if (!state.loading) {
+                Text(
+                    modifier = Modifier.clickable {
+                        onAction(ShowAddEngineDialog)
+                    },
+                    text = stringResource(R.string.Add),
+                    color = MaterialTheme.colorScheme.primary,
+                    fontWeight = FontWeight.Bold
+                )
             }
-        },
-        loading = state.loading,
-        scrollable = false
-    ) {
+        }
+
+        Spacer(Modifier.height(16.dp))
 
         if (state.searchEngines.isEmpty()) {
             Column(
@@ -141,7 +137,7 @@ fun SearchEnginesScreen(
                                 SearchEngineCard(
                                     onClick = {
                                         onAction(
-                                            SearchEnginesScreenAction.ShowEditEngineDialog(
+                                            ShowEditEngineDialog(
                                                 state.defaultSearchEngine
                                             )
                                         )
@@ -168,7 +164,7 @@ fun SearchEnginesScreen(
                             searchEngine = searchEngine,
                             onClick = {
                                 onAction(
-                                    SearchEnginesScreenAction.ShowEditEngineDialog(
+                                    ShowEditEngineDialog(
                                         searchEngine
                                     )
                                 )

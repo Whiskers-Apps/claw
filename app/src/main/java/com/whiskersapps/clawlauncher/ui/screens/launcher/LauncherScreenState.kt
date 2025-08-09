@@ -1,4 +1,4 @@
-package com.whiskersapps.clawlauncher.launcher
+package com.whiskersapps.clawlauncher.ui.screens.launcher
 
 import com.whiskersapps.clawlauncher.shared.model.Settings
 

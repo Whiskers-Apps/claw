@@ -5,7 +5,6 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.height
-import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
@@ -14,11 +13,11 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.navigation.NavController
 import com.whiskersapps.clawlauncher.R
-import com.whiskersapps.clawlauncher.shared.model.Routes
-import com.whiskersapps.clawlauncher.shared.view.composables.ContentColumn
-import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
-import com.whiskersapps.clawlauncher.settings.composables.SectionPosition
 import com.whiskersapps.clawlauncher.settings.composables.SettingsSection
+import com.whiskersapps.clawlauncher.shared.model.Routes
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
+import com.whiskersapps.clawlauncher.shared.view.composables.NavBar
+import com.whiskersapps.clawlauncher.ui.common.composables.CardShape
 import org.koin.androidx.compose.koinViewModel
 
 @Composable
@@ -62,38 +61,31 @@ fun SettingsScreen(
 
     val state = vm.state.collectAsState().value
 
-    ContentColumn(
-        useSystemBarsPadding = true,
-        navigationBar = {
-            NavBar(navigateBack = { onAction(SettingsScreenAction.NavigateBack) })
-        },
-        loading = state.loading
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(start = 24.dp, end = 24.dp, bottom = 24.dp),
-            verticalArrangement = Arrangement.spacedBy(2.dp),
-        ) {
-            if (!state.isDefaultLauncher) {
-                SettingsSection(
-                    icon = R.drawable.info,
-                    title = stringResource(R.string.SettingsScreen_default_launcher),
-                    description = stringResource(R.string.SettingsScreen_default_launcher_description),
-                    position = SectionPosition.SINGLE,
-                    onClick = {
-                        onAction(SettingsScreenAction.SetDefaultLauncher)
-                    }
-                )
+    CenteredLayout {
+        NavBar(sidePadded = false, navigateBack = { onAction(SettingsScreenAction.NavigateBack) })
 
-                Spacer(modifier = Modifier.height(22.dp))
-            }
+        Spacer(modifier = Modifier.height(16.dp))
 
+        if (!state.isDefaultLauncher) {
+            SettingsSection(
+                icon = R.drawable.info,
+                title = stringResource(R.string.SettingsScreen_default_launcher),
+                description = stringResource(R.string.SettingsScreen_default_launcher_description),
+                cardShape = CardShape.Single,
+                onClick = {
+                    onAction(SettingsScreenAction.SetDefaultLauncher)
+                }
+            )
+        }
 
+        Spacer(modifier = Modifier.height(16.dp))
+
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             SettingsSection(
                 icon = R.drawable.palette,
                 title = stringResource(R.string.SettingsScreen_style),
                 description = stringResource(R.string.SettingsScreen_style_description),
-                position = SectionPosition.TOP,
+                cardShape = CardShape.Top,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToStyleSettings)
                 }
@@ -103,6 +95,7 @@ fun SettingsScreen(
                 icon = R.drawable.home,
                 title = stringResource(R.string.SettingsScreen_home),
                 description = stringResource(R.string.SettingsScreen_home_description),
+                cardShape = CardShape.Middle,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToHomeSettings)
                 }
@@ -112,19 +105,21 @@ fun SettingsScreen(
                 icon = R.drawable.apps,
                 title = stringResource(R.string.SettingsScreen_apps),
                 description = stringResource(R.string.SettingsScreen_apps_description),
-                position = SectionPosition.BOTTOM,
+                cardShape = CardShape.Bottom,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToAppsSettings)
                 }
             )
+        }
 
-            Spacer(modifier = Modifier.height(22.dp))
+        Spacer(modifier = Modifier.height(24.dp))
 
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             SettingsSection(
                 icon = R.drawable.bookmark,
                 title = stringResource(R.string.SettingsScreen_bookmarks),
                 description = stringResource(R.string.SettingsScreen_bookmarks_description),
-                position = SectionPosition.TOP,
+                cardShape = CardShape.Top,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToBookmarksSettings)
                 }
@@ -134,19 +129,31 @@ fun SettingsScreen(
                 icon = R.drawable.loupe,
                 title = stringResource(R.string.SettingsScreen_search_engines),
                 description = stringResource(R.string.SettingsScreen_search_engines_description),
-                position = SectionPosition.BOTTOM,
+                cardShape = CardShape.Middle,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToSearchEnginesSettings)
                 }
             )
 
-            Spacer(modifier = Modifier.height(22.dp))
+            SettingsSection(
+                icon = R.drawable.suitcase,
+                title = stringResource(R.string.SettingsScreen_workspaces),
+                description = stringResource(R.string.SettingsScreen_workspaces_description),
+                cardShape = CardShape.Bottom,
+                onClick = {
+                    onAction(SettingsScreenAction.WorkspacesClick)
+                }
+            )
+        }
 
+        Spacer(modifier = Modifier.height(24.dp))
+
+        Column(verticalArrangement = Arrangement.spacedBy(2.dp)) {
             SettingsSection(
                 icon = R.drawable.fingerprint,
                 title = stringResource(R.string.SettingsScreen_security),
                 description = stringResource(R.string.SettingsScreen_security_description),
-                position = SectionPosition.TOP,
+                cardShape = CardShape.Top,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToSecuritySettings)
                 }
@@ -156,24 +163,24 @@ fun SettingsScreen(
                 icon = R.drawable.lock,
                 title = stringResource(R.string.SettingsScreen_lock_screen),
                 description = stringResource(R.string.SettingsScreen_lock_screen_description),
-                position = SectionPosition.BOTTOM,
+                cardShape = CardShape.Bottom,
                 onClick = {
                     onAction(SettingsScreenAction.NavigateToLockScreenSettings)
                 }
             )
-
-            Spacer(modifier = Modifier.height(22.dp))
-
-            SettingsSection(
-                icon = R.drawable.info,
-                title = stringResource(R.string.SettingsScreen_about),
-                description = stringResource(R.string.SettingsScreen_about_description),
-                position = SectionPosition.SINGLE,
-                onClick = {
-                    onAction(SettingsScreenAction.NavigateToAbout)
-                }
-            )
         }
+
+        Spacer(modifier = Modifier.height(24.dp))
+
+        SettingsSection(
+            icon = R.drawable.info,
+            title = stringResource(R.string.SettingsScreen_about),
+            description = stringResource(R.string.SettingsScreen_about_description),
+            cardShape = CardShape.Single,
+            onClick = {
+                onAction(SettingsScreenAction.NavigateToAbout)
+            }
+        )
     }
 }
 

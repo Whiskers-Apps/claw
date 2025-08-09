@@ -40,8 +40,8 @@ class StyleSettingsScreenVM(
                         loading = false,
                         loadingSettings = false,
                         darkMode = settings.theme,
-                        theme = settings.palette,
-                        darkTheme = settings.darkPalette,
+                        palette = settings.palette,
+                        darkPalette = settings.darkPalette,
                         iconPack = iconPack,
                         iconPacks = iconPacks
                     )

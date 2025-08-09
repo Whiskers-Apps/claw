@@ -41,6 +41,12 @@ import androidx.compose.ui.platform.LocalFocusManager
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
 import androidx.compose.ui.unit.dp
 import androidx.fragment.app.FragmentActivity
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.CloseKeyboard
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.NavigateToHome
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.OpenApp
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.OpenAppInfo
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.OpenShortcut
+import com.whiskersapps.clawlauncher.launcher.apps.AppsScreenAction.RequestUninstall
 import com.whiskersapps.clawlauncher.launcher.apps.composables.AppsScreenSearchBar
 import com.whiskersapps.clawlauncher.shared.utils.inPortrait
 import com.whiskersapps.clawlauncher.shared.utils.isSplitAvailable
@@ -62,13 +68,13 @@ fun AppsScreenRoot(
     AppsScreen(
         onAction = { action ->
             when (action) {
-                AppsScreenAction.NavigateToHome -> scope.launch {
+                NavigateToHome -> scope.launch {
                     pagerState.scrollToPage(0)
                     keyboardController?.hide()
                     focusManager.clearFocus()
                 }
 
-                AppsScreenAction.CloseKeyboard -> {
+                CloseKeyboard -> {
                     keyboardController?.hide()
                     focusManager.clearFocus()
                 }
@@ -145,13 +151,13 @@ fun AppsScreen(
                                                 .combinedClickable(
                                                     onClick = {
                                                         onAction(
-                                                            AppsScreenAction.OpenApp(
+                                                            OpenApp(
                                                                 app.packageName,
                                                                 context as FragmentActivity
                                                             )
                                                         )
-                                                        onAction(AppsScreenAction.CloseKeyboard)
-                                                        onAction(AppsScreenAction.NavigateToHome)
+                                                        onAction(CloseKeyboard)
+                                                        onAction(NavigateToHome)
                                                     },
                                                     onLongClick = {
                                                         showMenu = true
@@ -179,23 +185,23 @@ fun AppsScreen(
                                                     showMenu = false
                                                 },
                                                 onInfoClick = {
-                                                    onAction(AppsScreenAction.OpenAppInfo(app.packageName))
+                                                    onAction(OpenAppInfo(app.packageName))
                                                     showMenu = false
-                                                    onAction(AppsScreenAction.NavigateToHome)
+                                                    onAction(NavigateToHome)
                                                 },
                                                 onUninstallClick = {
-                                                    onAction(AppsScreenAction.RequestUninstall(app.packageName))
+                                                    onAction(RequestUninstall(app.packageName))
                                                     showMenu = false
                                                 },
                                                 onOpenShortcut = { shortcut ->
                                                     onAction(
-                                                        AppsScreenAction.OpenShortcut(
+                                                        OpenShortcut(
                                                             app.packageName,
                                                             shortcut
                                                         )
                                                     )
                                                     showMenu = false
-                                                    onAction(AppsScreenAction.NavigateToHome)
+                                                    onAction(NavigateToHome)
                                                 }
                                             )
                                         }
@@ -226,13 +232,13 @@ fun AppsScreen(
                                                 .combinedClickable(
                                                     onClick = {
                                                         onAction(
-                                                            AppsScreenAction.OpenApp(
+                                                            OpenApp(
                                                                 app.packageName,
                                                                 context as FragmentActivity
                                                             )
                                                         )
-                                                        onAction(AppsScreenAction.CloseKeyboard)
-                                                        onAction(AppsScreenAction.NavigateToHome)
+                                                        onAction(CloseKeyboard)
+                                                        onAction(NavigateToHome)
                                                     },
                                                     onLongClick = {
                                                         showMenu = true
@@ -260,23 +266,23 @@ fun AppsScreen(
                                                     showMenu = false
                                                 },
                                                 onInfoClick = {
-                                                    onAction(AppsScreenAction.OpenAppInfo(app.packageName))
+                                                    onAction(OpenAppInfo(app.packageName))
                                                     showMenu = false
-                                                    onAction(AppsScreenAction.NavigateToHome)
+                                                    onAction(NavigateToHome)
                                                 },
                                                 onUninstallClick = {
-                                                    onAction(AppsScreenAction.RequestUninstall(app.packageName))
+                                                    onAction(RequestUninstall(app.packageName))
                                                     showMenu = false
                                                 },
                                                 onOpenShortcut = { shortcut ->
                                                     onAction(
-                                                        AppsScreenAction.OpenShortcut(
+                                                        OpenShortcut(
                                                             app.packageName,
                                                             shortcut
                                                         )
                                                     )
                                                     showMenu = false
-                                                    onAction(AppsScreenAction.NavigateToHome)
+                                                    onAction(NavigateToHome)
                                                 }
                                             )
                                         }
@@ -303,29 +309,29 @@ fun AppsScreen(
                                     app = app,
                                     openApp = {
                                         onAction(
-                                            AppsScreenAction.OpenApp(
+                                            OpenApp(
                                                 app.packageName,
                                                 context as FragmentActivity
                                             )
                                         )
-                                        onAction(AppsScreenAction.CloseKeyboard)
-                                        onAction(AppsScreenAction.NavigateToHome)
+                                        onAction(CloseKeyboard)
+                                        onAction(NavigateToHome)
                                     },
                                     openInfo = {
-                                        onAction(AppsScreenAction.OpenAppInfo(app.packageName))
-                                        onAction(AppsScreenAction.NavigateToHome)
+                                        onAction(OpenAppInfo(app.packageName))
+                                        onAction(NavigateToHome)
                                     },
                                     requestUninstall = {
-                                        onAction(AppsScreenAction.RequestUninstall(app.packageName))
+                                        onAction(RequestUninstall(app.packageName))
                                     },
                                     openShortcut = { shortcut ->
                                         onAction(
-                                            AppsScreenAction.OpenShortcut(
+                                            OpenShortcut(
                                                 app.packageName,
                                                 shortcut
                                             )
                                         )
-                                        onAction(AppsScreenAction.NavigateToHome)
+                                        onAction(NavigateToHome)
                                     },
                                     backgroundColor = if (index == 0 && state.searchText.isNotEmpty()) MaterialTheme.colorScheme.surfaceVariant else MaterialTheme.colorScheme.background
                                 )

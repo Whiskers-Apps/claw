@@ -5,6 +5,19 @@ import android.content.Intent
 import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.ChangeWorkspaceClick
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.CloseLockScreenDialog
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.CloseMenuDialog
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnChangeWallpaper
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnLockScreen
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnOpenCalendar
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnOpenLockSettings
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OnOpenSettings
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OpenMenuDialog
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OpenNotificationPanel
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.OpenSearchSheet
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.ResetOpenLockSettings
+import com.whiskersapps.clawlauncher.launcher.home.HomeScreenAction.ShowLockScreenDialog
 import com.whiskersapps.clawlauncher.launcher.lock.ScreenLock
 import com.whiskersapps.clawlauncher.settings.SettingsActivity
 import com.whiskersapps.clawlauncher.settings.di.SettingsRepo
@@ -68,46 +81,48 @@ class HomeScreenVM(
 
     fun onAction(homeScreenAction: HomeScreenAction) {
         when (homeScreenAction) {
-            HomeScreenAction.OnChangeWallpaper -> {
+            OnChangeWallpaper -> {
                 openWallpaperSetter()
             }
 
-            HomeScreenAction.OnOpenSettings -> {
+            OnOpenSettings -> {
                 openSettings()
             }
 
-            HomeScreenAction.OpenSearchSheet -> {}
+            OpenSearchSheet -> {}
 
-            HomeScreenAction.OpenNotificationPanel -> {
+            OpenNotificationPanel -> {
                 openNotificationPanel()
             }
 
-            HomeScreenAction.OpenMenuDialog -> {
+            OpenMenuDialog -> {
                 setShowMenuDialog(true)
             }
 
-            HomeScreenAction.CloseMenuDialog -> {
+            CloseMenuDialog -> {
                 setShowMenuDialog(false)
             }
 
 
-            HomeScreenAction.OnOpenCalendar -> onOpenCalendar()
+            OnOpenCalendar -> onOpenCalendar()
 
-            HomeScreenAction.OnLockScreen -> lockScreen()
+            OnLockScreen -> lockScreen()
 
 
-            HomeScreenAction.OnOpenLockSettings -> {}
+            OnOpenLockSettings -> {}
 
-            HomeScreenAction.ResetOpenLockSettings -> {
+            ResetOpenLockSettings -> {
             }
 
-            HomeScreenAction.ShowLockScreenDialog -> {
+            ShowLockScreenDialog -> {
                 setShowLockScreenDialog(true)
             }
 
-            HomeScreenAction.CloseLockScreenDialog -> {
+            CloseLockScreenDialog -> {
                 setShowLockScreenDialog(false)
             }
+
+            ChangeWorkspaceClick -> {}
         }
     }
 

@@ -161,4 +161,7 @@
     <string name="SelectThemeScreen_color_palette_description">This color palette is used when using a dark theme</string>
     <string name="SelectThemeScreen_light_color_palette_title">Light Color Palette</string>
     <string name="SelectThemeScreen_light_color_palette_description">This color palette is used when using a light theme</string>
+    <string name="HomeScreen_change_workspace">Change Workspace</string>
+    <string name="SettingsScreen_workspaces">Workspaces</string>
+    <string name="SettingsScreen_workspaces_description">Create workspaces that have different apps</string>
 </resources>

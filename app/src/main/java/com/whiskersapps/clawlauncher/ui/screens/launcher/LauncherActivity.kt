@@ -1,13 +1,9 @@
-package com.whiskersapps.clawlauncher.launcher
+package com.whiskersapps.clawlauncher.ui.screens.launcher
 
-import android.content.res.Configuration
-import android.graphics.Color
 import android.os.Bundle
-import androidx.activity.SystemBarStyle
 import androidx.activity.compose.setContent
 import androidx.activity.enableEdgeToEdge
 import androidx.compose.runtime.collectAsState
-import androidx.core.view.WindowCompat
 import androidx.fragment.app.FragmentActivity
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
@@ -21,8 +17,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import org.koin.android.ext.android.get
 import org.koin.androidx.viewmodel.ext.android.getViewModel
-import androidx.core.graphics.toColorInt
-
 
 class LauncherActivity : FragmentActivity() {
     private val settingsRepo = get<SettingsRepo>()
@@ -34,7 +28,7 @@ class LauncherActivity : FragmentActivity() {
         lifecycleScope.launch(Dispatchers.IO) {
             settingsRepo.settings.collect {
                 lifecycle.repeatOnLifecycle(Lifecycle.State.STARTED) {
-                    WindowInfoTracker.getOrCreate(this@LauncherActivity)
+                    WindowInfoTracker.Companion.getOrCreate(this@LauncherActivity)
                         .windowLayoutInfo(this@LauncherActivity)
                         .collect { layoutInfo ->
                             val foldingFeature =
