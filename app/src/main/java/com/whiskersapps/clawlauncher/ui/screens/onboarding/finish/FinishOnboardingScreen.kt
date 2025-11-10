@@ -13,6 +13,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivity
 import org.koin.androidx.compose.koinViewModel
 
@@ -40,7 +41,7 @@ fun FinishOnboardingScreenRoot(
 
 @Composable
 fun FinishOnboardingScreen(onAction: (FinishOnboardingScreenAction) -> Unit) {
-    Box(modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center) {
+    CenteredLayout(centerVertically = true) {
         Button(onClick = { onAction(FinishOnboardingScreenAction.FinishClick) }) {
             Text("Finish")
         }

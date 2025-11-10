@@ -13,6 +13,7 @@ import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.shared.view.theme.ClawLauncherTheme
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.composables.PagerDots
@@ -49,7 +50,6 @@ class OnBoardingActivity : ComponentActivity() {
                                 .fillMaxHeight()
                                 .weight(1f, fill = true)
                         ) { page ->
-                            CenteredLayout {
                                 when (page) {
                                     0 -> {
                                         WelcomeScreen()
@@ -67,7 +67,6 @@ class OnBoardingActivity : ComponentActivity() {
                                         FinishOnboardingScreenRoot(pagerState)
                                     }
                                 }
-                            }
                         }
 
                         PagerDots(pagerState)

@@ -18,6 +18,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.whiskersapps.clawlauncher.R
+import com.whiskersapps.clawlauncher.shared.view.composables.CenteredLayout
 import com.whiskersapps.clawlauncher.ui.common.composables.getCardShape
 import com.whiskersapps.clawlauncher.ui.screens.launcher.LauncherActivity
 import com.whiskersapps.clawlauncher.ui.screens.onboarding.select_engine.SelectEngineScreenAction.Finish
@@ -60,36 +61,40 @@ fun SelectEngineScreen(
 ) {
     val state = vm.state.collectAsState().value
 
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(4.dp)
+    CenteredLayout(
+        scrollable = false
     ) {
-        item {
-            Text(
-                text = stringResource(R.string.SearchEnginesSetupScreen_title),
-                color = MaterialTheme.colorScheme.onBackground,
-                fontWeight = FontWeight.Medium,
-                fontSize = 20.sp
-            )
+        LazyColumn(
+            verticalArrangement = Arrangement.spacedBy(4.dp)
+        ) {
+            item {
+                Text(
+                    text = stringResource(R.string.SearchEnginesSetupScreen_title),
+                    color = MaterialTheme.colorScheme.onBackground,
+                    fontWeight = FontWeight.Medium,
+                    fontSize = 20.sp
+                )
 
-            Text(
-                text = stringResource(R.string.SearchEnginesSetupScreen_description),
-                color = MaterialTheme.colorScheme.onBackground
-            )
+                Text(
+                    text = stringResource(R.string.SearchEnginesSetupScreen_description),
+                    color = MaterialTheme.colorScheme.onBackground
+                )
 
-            Spacer(Modifier.height(6.dp))
-        }
+                Spacer(Modifier.height(6.dp))
+            }
 
-        itemsIndexed(
-            items = state.searchEngines,
-            key = { index, engine -> engine.id }
-        ) { index, searchEngine ->
-            SearchEngineCard(
-                url = searchEngine.query,
-                name = searchEngine.name,
-                selected = state.defaultEngine == searchEngine,
-                onSelect = { onAction(SelectEngineScreenAction.SetDefaultEngine(searchEngine.id)) },
-                cardShape = getCardShape(index, state.searchEngines.size)
-            )
+            itemsIndexed(
+                items = state.searchEngines,
+                key = { index, engine -> engine.id }
+            ) { index, searchEngine ->
+                SearchEngineCard(
+                    url = searchEngine.query,
+                    name = searchEngine.name,
+                    selected = state.defaultEngine == searchEngine,
+                    onSelect = { onAction(SelectEngineScreenAction.SetDefaultEngine(searchEngine.id)) },
+                    cardShape = getCardShape(index, state.searchEngines.size)
+                )
+            }
         }
     }
 }
